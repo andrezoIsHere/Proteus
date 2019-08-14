@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<html lang="ru">
+
+  <head>
+
+    <title>{{values.global.title}}</title>
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="description" content="{{values.global.description}}">
+    <meta name="keywords" content="Новосная лента, 27 школа, 27, Астана, Нур-Султан">
+    <meta name="author" content="andrezo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  </head>
+
+  <body spellcheck="false">
+
+    {% block content %}
+
+    {% endblock %}
+
+  </body>
+
+</html>

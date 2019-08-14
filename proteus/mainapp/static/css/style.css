@@ -1,0 +1,36 @@
+/**
+** Main body
+**/
+
+body {width: 100vw; height: auto; margin: 0; padding: 0; overflow-x: hidden; background: white; opacity: 1}
+
+/**
+** Color palette
+**/
+
+*[color="light-brown"] {color: rgba(132,117,69,0.85)}
+*[color="dark-brown"] {color: rgba(81,55,33,.85)}
+
+*[background="light-brown"] {background: rgba(132,117,69,0.85)}
+*[background="dark-brown"] {background: rgba(81,55,33,.85)}
+
+/**
+** Text types
+**/
+
+*[unselectable] {-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+
+*[forceselect] {-webkit-user-select: all; -moz-user-select: all; -ms-user-select: all; user-select: all}
+
+*[onlytext] {-webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text}
+
+/**
+** Section main
+**/
+
+body>section#main[role="main"] {width: 100%; height: auto; margin: 0; padding: 0; overflow: hidden; z-index: 1}
+
+/* NOTE: height: 10vh */
+
+section#main[role="main"]>header.main__header {width: 100%; position: fixed; display: inline-flex; text-align: center; justify-content: center; overflow: hidden}
+section#main[role="main"]>header.main__header>.main__header__workspace {width: 97%; margin: 1vh 1.5%; height: 8vh}

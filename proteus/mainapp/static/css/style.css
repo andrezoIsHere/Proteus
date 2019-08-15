@@ -2,78 +2,88 @@
 ** Main body
 **/
 
-body {width: 100vw; height: auto; margin: 0; padding: 0; scroll-behavior: smooth; overflow-x: hidden; background: white; opacity: 1}
-
-body::-webkit-scrollbar {width: 0.5vw}
-
-body::-webkit-scrollbar-thumb {background-color: rgba(139,65,21,.95); outline: 1px solid slategrey}
+body {width: 100vw; height: auto; margin: 0; padding: 0; z-index: 1; scroll-behavior: smooth; background: whitesmoke; opacity: 1}
 
 /**
-** Color palette
+** Select types
 **/
 
-*[color="light-brown"] {color: rgba(132,117,69,0.85)}
-*[color="dark-brown"] {color: rgba(81,55,33,.85)}
-
-*[background="light-brown"] {background: rgba(132,117,69,0.85)}
-*[background="dark-brown"] {background: rgba(81,55,33,.85)}
+[unselectable] {-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
 
 /**
-** Text types
+** Standart fonts
 **/
 
-*[unselectable] {-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
-
-*[forceselect] {-webkit-user-select: all; -moz-user-select: all; -ms-user-select: all; user-select: all}
-
-*[onlytext] {-webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text}
-
-/**
-** Section main
-**/
-
-body>section#main[role="main"] {width: 100%; height: auto; scroll-behavior: smooth; margin: 0; padding: 0; overflow: hidden !important; z-index: 1}
-
-/* NOTE: height: 10vh */
-
-section#main[role="main"]>header.main__header {width: 100%; display: inline-block; justify-content: center; z-index: 999; align-items: center; position: fixed; background: rgba(145,68,22,.95)}
-
-section#main[role="main"]>header.main__header>.main__header__workspace {width: 95%; margin: 0 2.5vw; height: 7.5vh; display: inline-flex}
-header.main__header>.main__header__workspace>.header__workspace__side {width: 50%; height: 100%; overflow: hidden; font-family: 'Source Sans Pro', sans-serif; color: white}
-.main__header__workspace>.header__workspace__side>.workspace__side__nav {font-weight: bolder; height: 100%; padding: 0 0.5vw; display: inline-block; display:
-  inline-flex; align-items: center; align-content: center; text-align: center; float: right}
-.main__header__workspace>.header__workspace__side>.workspace__side__nav>a {color: white; display: inline-block; font-size: calc(100vw - 99vw); text-decoration: none; margin: 0 1vw; word-wrap: normal; line-height: 170%}
-.main__header__workspace>.header__workspace__side>.workspace__side__nav>a[active] {border-radius: 2px; border-bottom: 0.45vh solid white}
-
-section#main[role="main"]>article.main__block {width: 100%; height: 100%; overflow: hidden; display: inline-flex;
-  align-items: center; align-content: center; text-align: center; scroll-behavior: smooth}
-section#main[role="main"]>article.main__block>.main__block__background {width: 100%; height: 100%; background-attachment: fixed !important; position: absolute; z-index: 2; animation-iteration-count: infinite; animation-name: zoomBackground; animation-duration: 5500ms}
-
-@keyframes zoomBackground {
-  0% {transform: scale(1)}
-  50% {transform: scale(1)}
-  100% {transform: scale(1)}
+@font-face {
+  font-family: 'Segoe Lt';
+  src: URL('fonts/segoelt.ttf') format('truetype');
 }
 
-section#main[role="main"]>article.main__block>.main__block__inner {width: 100%; z-index: 99; height: 60%; position: relative; background: rgba(139,65,21,.85); margin: 0 /**margin: 20vh 0**/}
-article.main__block>.main__block__inner>.block__inner__workspace {width: 80%; box-sizing: border-box; margin: 0 10%; height: 90%; font-family: 'Source Sans Pro', sans-serif}
-.main__block__inner>.block__inner__workspace>.inner_workspace__header {display: inline-block; width: 100%; margin: 10vh 0 0.25vh 0; color: white; text-align: center;
-  font-family: 'Source Sans Pro', sans-serif; font-size: calc(100vw - 95vw); font-weight: bolder}
-.main__block__inner>.block__inner__workspace>.inner_workspace__span {color: rgba(250,250,250,.75); font-size: calc(100vw - 98vw); text-align: center; display: inline-block; width: 100%}
-.main__block__inner>.block__inner__workspace>a>.btn {color: white; outline: none; display: block; width: 25%; margin: 5vh 37.5%; margin-bottom: 0; text-decoration: none}
-.main__block__inner>.block__inner__workspace>a {color: white; text-decoration: none}
-.main__block__inner>.block__inner__workspace>.inner__workspace__tip {color: white; margin-top: 1vh; font-family: 'Source Sans Pro', sans-serif; cursor: pointer; display: inline-block; font-size: calc(100vw - 98.75vw); text-align: center; width: 100%}
+@font-face {
+  font-family: 'Segoe Bl';
+  src: URL('fonts/segoebl.ttf') format('truetype');
+}
 
-.btn {padding: 1vh 2vw; background: none; color: white; border: 0.35vh solid white; transition: 450ms color, border; text-decoration: none; font-family: 'Source Sans Pro', sans-serif; font-size: calc(100vw - 98.5vw); font-weight: bolder; cursor: pointer}
-.btn:hover {color: rgba(250,250,250,.65); border: 0.35vh solid rgba(250,250,250,.65)}
+/**
+** Main section
+**/
 
-article.main__block>.main__block__inner>.block__inner__authspace {width: 80%; box-sizing: border-box; margin: 0 10%; padding-bottom: 2vh; font-family: 'Source Sans Pro', sans-serif}
-.main__block__inner>.block__inner__authspace>.inner__workspace__header {width: 100%; margin: 0; margin-top: 2.5vh; margin-bottom: 0vh; display: inline-block; text-align: center;
-  font-size: calc(100vw - 98vw); color: white}
-.main__block__inner>.block__inner__authspace>.inner__workspace__input {width: 80%; border-radius: 5px; outline: none; padding: 0.5vh 0.25vw; display: block; margin: 0 10%; background: none;
-  border: solid 0.45vh white; font-size: calc(100vw - 99vw); color: white; font-family: 'Source Sans Pro', sans-serif; margin-bottom: 2vh}
-.main__block__inner>.block__inner__authspace>.inner__workspace__input::placeholder {color: rgba(250,250,250,.75); font-size: calc(100vw - 99vw); font-family: 'Source Sans Pro', sans-serif}
-.main__block__inner>.block__inner__authspace>.inner__workspace__span {width: 100%; text-align: center; color: white; font-weight: bold; margin-bottom: 2.5vh; display: block; font-family: 'Source Sans Pro', sans-serif}
-.main__block__inner>.block__inner__authspace>.inner__workspace__submit {width: 30% !important; margin: 0 35% !important; background: white;
-  cursor: pointer; color: rgba(139,65,21,.75); font-weight: bolder; transition: 450ms background, color}
-.main__block__inner>.block__inner__authspace>.inner__workspace__submit:hover {background: rgba(139,65,21,.5); color: white}
+section.main[role="main"][handler] {width: 100%; display: block; z-index: 1; position: relative}
+section.main[role="main"][handler]>*[element] {width: 100%; height: auto; padding: 0; margin: 0; z-index: 1; background: whitesmoke; overflow: hidden}
+
+/**
+** Main header
+**/
+
+section.main[role="main"][handler]>header.main__header {width: 100%; position: fixed; background: rgba(33,33,40,.95)}
+header.main__header>section.bottom__header {display: inline-block; width: 100%; height: 4.5vh; background: white; overflow: hidden}
+header.main__header>section.top__header {display: inline-block; width: 100%; height: 6.5vh; overflow: hidden}
+header.main__header>section.top__header>.main__header__big {width: 65%; height: 100%; display: inline-block}
+header.main__header>section.top__header>.main__header__little {float: right; height: 100%; display: inline-flex; align-items: center; align-content: center; text-align: center}
+.main__header__big>.header__big__navigation {margin: 0 0%; padding: 0; height: 100%; display: inline-block}
+.header__big__navigation>.navigation__children {margin: 0 0.5vw; padding: 0 0.5vw; height: 100%; display: inline-flex; align-items: center;
+  align-content: center; text-align: center; overflow: hidden; color: white; float: left; text-decoration: none}
+.header__big__navigation>.navigation__children--link:hover {background: rgba(24,24,40,.65); color: white}
+.header__big__navigation>.navigation__children--header {font-family: 'Segoe Bl'; margin-right: 0; font-weight: bolder; font-size: calc(100vw - 99.1vw)}
+.header__big__navigation>.navigation__children--link {font-family: 'Segoe Lt'; color: rgba(255,255,255,.6); font-size: calc(100vw - 99.1vw); cursor: pointer; transition: 450 background}
+
+.main__header__little>input.header__little__input {padding: 0.5vh 0.35vw; height: 70%; float: right; width: 75%; outline: none; border: solid 2px white; cursor: pointer; border-radius: 5px}
+.main__header__little>input.header__little__input--button {margin: 0 0.5vw; margin-right: 1.5vw; font-family: 'Segoe Lt'; padding-left: 0.75vw; padding-right: 0.75vw; font-weight: bolder; width: auto;
+  color: rgb(40, 167, 69); background: none; border: solid 2px rgb(40, 167, 69); transition: 450ms background, color, border}
+.main__header__little>input.header__little__input--button:hover {background: rgb(40, 167, 69); color: white}
+
+section.bottom__header>.header__big__navigation {margin: 0 0%; padding: 0; height: 100%; color: rgba(33,33,33,.85); display: inline-block}
+section.bottom__header>.header__big__navigation>a {height: 100%; margin: 0; color: rgba(33,33,33,.85); transition: 450ms color}
+section.bottom__header>.header__big__navigation>a.navigation__children--link:hover {background: none; color: rgb(0, 123, 255) !important}
+
+/**
+** Main article
+**/
+
+article[element]>section.element__blog {width: 60%; height: 80vh; margin: 13.5vh 20%; margin-bottom: 0}
+section.element__blog>.element__blog__item {width: 100%; height: 7.5vw; box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); padding: 1vh 1vw; background: white; border-radius: 5px}
+section.element__blog>.element__blog__item--first {background: rgba(255,150,50,.85); margin-bottom: 2vh}
+.element__blog__item--first>.blog__item__icon {display: inline-block; width: auto; float: left}
+.element__blog__item--first>.blog__item__description {display: inline-flex; padding: 0 1vw; float: left; height: 100%; justify-content: center; align-items: center; align-content: center}
+.element__blog__item--first>.blog__item__description>h1 {font-size: calc(100vh - 97vh); font-family: 'Segoe Bl'; font-weight: bolder; color: white}
+.element__blog__item--first>.blog__item__description>h1>span {display: block; font-family: 'Segoe Lt'; font-size: calc(100vh - 98.5vh); color: rgba(255,255,255,.75)}
+
+.element__blog__item--news>h3 {font-family: 'Segoe Lt'; width: 100%; font-weight: bolder; padding-bottom: 0.5vh; margin-bottom: 1.5vh;
+  margin-top: 0.5vh; border-bottom: 1px solid rgb(222, 226, 230) !important}
+.element__blog__item--news>.blog__item__post {width: 100%; height: 6%; margin: 2vh 0}
+.blog__item__post>.item__post__rating {width: 2vw; float: left; padding: 0 0.25vw; justify-content: center; align-items: center; align-content: center; height: 100%; display: inline-flex; flex-direction: column}
+.blog__item__post>.item__post__rating>svg {width: 100%; padding: 0.45vh 0; height: auto; display: inline-block; fill: rgb(222, 226, 230); transition: 150ms fill; cursor: pointer}
+
+.blog__item__post>.item__post__rating>svg.rating-up:hover {fill: rgb(0,255,0,.45)}
+.blog__item__post>.item__post__rating>svg.rating-down:hover {fill: rgb(255,0,0,.45)}
+
+.blog__item__post>.item__post__info {width: 95%; height: 5vh; display: inline-flex; text-align: left; align-items: center; font-family: 'Segoe Lt'; align-content: center; float: right}
+.blog__item__post>.item__post__info:after {content: ''; clear: both}
+.item__post__info>.post__info__inner {display: block; width: 100%; padding-bottom: 0.75vh; border-bottom: 1px solid rgb(222, 226, 230) !important}
+.item__post__info>.post__info__inner>h3 {font-family: 'Segoe Lt'; margin: 0; font-size: calc(100vh - 98.1vh); padding: 0; line-height: 90%}
+.item__post__info>.post__info__inner>span {font-size: calc(100vh - 98.35vh); margin-top: 0}
+
+section.element__blog>.element__blog__item>.blog__item__tip {display: block; text-align: right; font-family: 'Segoe Lt'; color: rgb(0, 123, 255); text-decoration: none;
+  cursor: pointer}
+
+section.hidden {display: none}

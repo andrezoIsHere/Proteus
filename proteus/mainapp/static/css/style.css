@@ -2,7 +2,11 @@
 ** Main body
 **/
 
-body {width: 100vw; height: auto; margin: 0; padding: 0; overflow-x: hidden; background: white; opacity: 1}
+body {width: 100vw; height: auto; margin: 0; padding: 0; scroll-behavior: smooth; overflow-x: hidden; background: white; opacity: 1}
+
+body::-webkit-scrollbar {width: 0.5vw}
+
+body::-webkit-scrollbar-thumb {background-color: rgba(139,65,21,.95); outline: 1px solid slategrey}
 
 /**
 ** Color palette
@@ -28,9 +32,48 @@ body {width: 100vw; height: auto; margin: 0; padding: 0; overflow-x: hidden; bac
 ** Section main
 **/
 
-body>section#main[role="main"] {width: 100%; height: auto; margin: 0; padding: 0; overflow: hidden; z-index: 1}
+body>section#main[role="main"] {width: 100%; height: auto; scroll-behavior: smooth; margin: 0; padding: 0; overflow: hidden !important; z-index: 1}
 
 /* NOTE: height: 10vh */
 
-section#main[role="main"]>header.main__header {width: 100%; position: fixed; display: inline-flex; text-align: center; justify-content: center; overflow: hidden}
-section#main[role="main"]>header.main__header>.main__header__workspace {width: 97%; margin: 1vh 1.5%; height: 8vh}
+section#main[role="main"]>header.main__header {width: 100%; display: inline-block; justify-content: center; z-index: 999; align-items: center; position: fixed; background: rgba(145,68,22,.95)}
+
+section#main[role="main"]>header.main__header>.main__header__workspace {width: 95%; margin: 0 2.5vw; height: 7.5vh; display: inline-flex}
+header.main__header>.main__header__workspace>.header__workspace__side {width: 50%; height: 100%; overflow: hidden; font-family: 'Source Sans Pro', sans-serif; color: white}
+.main__header__workspace>.header__workspace__side>.workspace__side__nav {font-weight: bolder; height: 100%; padding: 0 0.5vw; display: inline-block; display:
+  inline-flex; align-items: center; align-content: center; text-align: center; float: right}
+.main__header__workspace>.header__workspace__side>.workspace__side__nav>a {color: white; display: inline-block; font-size: calc(100vw - 99vw); text-decoration: none; margin: 0 1vw; word-wrap: normal; line-height: 170%}
+.main__header__workspace>.header__workspace__side>.workspace__side__nav>a[active] {border-radius: 2px; border-bottom: 0.45vh solid white}
+
+section#main[role="main"]>article.main__block {width: 100%; height: 100%; overflow: hidden; display: inline-flex;
+  align-items: center; align-content: center; text-align: center; scroll-behavior: smooth}
+section#main[role="main"]>article.main__block>.main__block__background {width: 100%; height: 100%; background-attachment: fixed !important; position: absolute; z-index: 2; animation-iteration-count: infinite; animation-name: zoomBackground; animation-duration: 5500ms}
+
+@keyframes zoomBackground {
+  0% {transform: scale(1)}
+  50% {transform: scale(1)}
+  100% {transform: scale(1)}
+}
+
+section#main[role="main"]>article.main__block>.main__block__inner {width: 100%; z-index: 99; height: 60%; position: relative; background: rgba(139,65,21,.85); margin: 0 /**margin: 20vh 0**/}
+article.main__block>.main__block__inner>.block__inner__workspace {width: 80%; box-sizing: border-box; margin: 0 10%; height: 90%; font-family: 'Source Sans Pro', sans-serif}
+.main__block__inner>.block__inner__workspace>.inner_workspace__header {display: inline-block; width: 100%; margin: 10vh 0 0.25vh 0; color: white; text-align: center;
+  font-family: 'Source Sans Pro', sans-serif; font-size: calc(100vw - 95vw); font-weight: bolder}
+.main__block__inner>.block__inner__workspace>.inner_workspace__span {color: rgba(250,250,250,.75); font-size: calc(100vw - 98vw); text-align: center; display: inline-block; width: 100%}
+.main__block__inner>.block__inner__workspace>a>.btn {color: white; outline: none; display: block; width: 25%; margin: 5vh 37.5%; margin-bottom: 0; text-decoration: none}
+.main__block__inner>.block__inner__workspace>a {color: white; text-decoration: none}
+.main__block__inner>.block__inner__workspace>.inner__workspace__tip {color: white; margin-top: 1vh; font-family: 'Source Sans Pro', sans-serif; cursor: pointer; display: inline-block; font-size: calc(100vw - 98.75vw); text-align: center; width: 100%}
+
+.btn {padding: 1vh 2vw; background: none; color: white; border: 0.35vh solid white; transition: 450ms color, border; text-decoration: none; font-family: 'Source Sans Pro', sans-serif; font-size: calc(100vw - 98.5vw); font-weight: bolder; cursor: pointer}
+.btn:hover {color: rgba(250,250,250,.65); border: 0.35vh solid rgba(250,250,250,.65)}
+
+article.main__block>.main__block__inner>.block__inner__authspace {width: 80%; box-sizing: border-box; margin: 0 10%; padding-bottom: 2vh; font-family: 'Source Sans Pro', sans-serif}
+.main__block__inner>.block__inner__authspace>.inner__workspace__header {width: 100%; margin: 0; margin-top: 2.5vh; margin-bottom: 0vh; display: inline-block; text-align: center;
+  font-size: calc(100vw - 98vw); color: white}
+.main__block__inner>.block__inner__authspace>.inner__workspace__input {width: 80%; border-radius: 5px; outline: none; padding: 0.5vh 0.25vw; display: block; margin: 0 10%; background: none;
+  border: solid 0.45vh white; font-size: calc(100vw - 99vw); color: white; font-family: 'Source Sans Pro', sans-serif; margin-bottom: 2vh}
+.main__block__inner>.block__inner__authspace>.inner__workspace__input::placeholder {color: rgba(250,250,250,.75); font-size: calc(100vw - 99vw); font-family: 'Source Sans Pro', sans-serif}
+.main__block__inner>.block__inner__authspace>.inner__workspace__span {width: 100%; text-align: center; color: white; font-weight: bold; margin-bottom: 2.5vh; display: block; font-family: 'Source Sans Pro', sans-serif}
+.main__block__inner>.block__inner__authspace>.inner__workspace__submit {width: 30% !important; margin: 0 35% !important; background: white;
+  cursor: pointer; color: rgba(139,65,21,.75); font-weight: bolder; transition: 450ms background, color}
+.main__block__inner>.block__inner__authspace>.inner__workspace__submit:hover {background: rgba(139,65,21,.5); color: white}

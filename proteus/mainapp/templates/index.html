@@ -7,17 +7,75 @@
   <!-- Main section -->
   <section id="main" role="main">
 
-    <header class="main__header">
+    <header class="main__header" role="navigation" active>
 
-      <section class="main__header__workspace">
+      <section class="main__header__workspace" unselectable>
 
-        <div class="header__workspace__row">
+        <div class="header__workspace__side" style="padding: 0.75vh 0"><img height="80%" src="{% static 'css/white.png' %}"></div>
+
+        <div class="header__workspace__side">
+
+          <nav class="workspace__side__nav">
+
+            <a href="index" active>Авторизация</a>
+
+            <a href="news"><div>Новостная лента</div></a>
+
+          </nav>
 
         </div>
 
-      </<section>
+      </section>
 
     </header>
+
+    <article class="main__block">
+
+      <section class="main__block__background" style="background: url({% static 'wallpaper/head-01.jpg' %})"></section>
+
+      <section class="main__block__inner">
+
+        <div class="block__inner__workspace" unselectable>
+
+          <h1 class="inner_workspace__header">Привет!</h1>
+
+          <span class="inner_workspace__span">Для авторизации в информационной системе Proteus вам необходимо иметь аккаунт здесь. Помните, что все ваши предпочтения привязываются именно к аккаунту. </span>
+
+          <a href="#reg"><button class="btn">Регистрация</button></a>
+
+          <a class="inner__workspace__tip" href="#login">Уже есть аккаунт в сети?</a>
+
+        </div>
+
+      </section>
+
+    </article>
+
+    <article class="main__block" id="reg">
+
+      <section class="main__block__background" style="background: url({% static 'wallpaper/head-03.jpg' %})"></section>
+
+      <section class="main__block__inner" style="height: auto !important">
+
+        <div class="block__inner__authspace" unselectable>
+
+          <h1 class="inner__workspace__header">Регистрация нового аккаунта</h1>
+
+          <span class="inner__workspace__span">Для создания нового аккаунта вам необходимо заполнить все поля</span>
+
+          <input name="login" class="inner__workspace__input" autocomplete="off" placeholder="Введите логин">
+
+          <input name="password" class="inner__workspace__input" autocomplete="off" placeholder="Введите ваш пароль">
+
+          <input name="password" class="inner__workspace__input" autocomplete="off" placeholder="Повторите пароль">
+
+          <input name="password" type="submit" class="inner__workspace__input inner__workspace__submit" autocomplete="off" placeholder="Зарегистрироваться">
+
+        </div>
+
+      </section>
+
+    </article>
 
   </section>
 

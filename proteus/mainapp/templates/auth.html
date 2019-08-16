@@ -1,0 +1,165 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+
+  {% load staticfiles %}
+
+  <!-- Main section -->
+  <section handler class="main" role="main">
+
+    <header class="main__header">
+
+      <section class="top__header">
+
+        <section class="main__header__big">
+
+          <nav class="header__big__navigation" unselectable>
+
+            <a href="/" class="navigation__children navigation__children--header">
+
+              <div elementType="text">Proteus</div>
+
+            </a>
+
+            <a href="/auth" class="navigation__children navigation__children--link">
+
+              <div elementType="text">Авторизация</div>
+
+            </a>
+
+            <a href="/last" class="navigation__children navigation__children--link">
+
+              <div elementType="text">Последние новости</div>
+
+            </a>
+
+            <a href="/reference" class="navigation__children navigation__children--link">
+
+              <div elementType="text">Рекомендации</div>
+
+            </a>
+
+          </nav>
+
+        </section>
+
+        <form class="main__header__little">
+
+          <input class="header__little__input" placeholder="Введите поисковый запрос" name="search" autocomplete="off">
+
+          <input value="Поиск" class="header__little__input header__little__input--button" type="submit">
+
+        </form>
+
+      </section>
+
+      <section class="bottom__header">
+
+        <nav class="header__big__navigation" unselectable>
+
+          <a href="reference" style="margin-left: 0.5vw" class="navigation__children navigation__children--header">
+
+            <div elementType="text">Популярные теги: </div>
+
+          </a>
+
+          <a href="/tags/nature" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Природа</div>
+
+          </a>
+
+          <a href="/tags/programming" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Программирование</div>
+
+          </a>
+
+          <a href="/tags/space" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Космос</div>
+
+          </a>
+
+          <a href="/tags/humor" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Юмор</div>
+
+          </a>
+
+        </nav>
+
+      </section>
+
+    </header>
+
+    <!-- Main element initialization -->
+    <article element>
+
+      <section class="element__blog">
+
+        <div class="blog__auth">
+
+          <section class="auth__part" unselectable style="width: 65%">
+
+            <div class="part__text">
+
+              <h3>Информационный сервис Proteus</h3>
+
+              <span>Зарегистрируйтесь в системе для бесплатного использования новостной ленты</span>
+
+              <img width="65%" src="{% static 'css/favicon.png' %}">
+
+              <span tip>Proteus собирает информацию о ваших предпочтениях, но не передаёт её третьим лицам. Вся информация привязывается к вашему аккаунту</span>
+
+            </div>
+
+          </section>
+
+          <section class="auth__part" unselectable>
+
+            <div class="part__workspace">
+
+              <section class="part__workspace__block">
+
+                <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="login">
+
+                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" name="password">
+
+                <input class="workspace__block__input workspace__block__input--button" type="submit" value="Войти">
+
+              </section>
+
+              <form method="post" action="/reg" class="part__workspace__block" style="padding: 0vh 1.5vw">
+
+                <h3>Нет аккаунта?</h3>
+
+                <span>Быстрая регистрация</span>
+
+                <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="login">
+
+                <input class="workspace__block__input" placeholder="Введите вашу почту" type="email" autocomplete="off" name="email">
+
+                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" type="password" name="password">
+
+                <input class="workspace__block__input" placeholder="Повторите пароль" autocomplete="off" type="password" name="password2">
+
+                {% csrf_token %}
+
+                <input class="workspace__block__input workspace__block__input--button" type="submit" value="Регистрация">
+
+              </form>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </section>
+
+    </article>
+
+  </section>
+
+{% endblock %}

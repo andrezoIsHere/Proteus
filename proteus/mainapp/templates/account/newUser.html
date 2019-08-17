@@ -1,0 +1,40 @@
+{% extends 'wrapper.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+  <form action="{% url 'register' %}" method="post">
+
+    {% csrf_token %}
+
+    {% for field in form %}
+
+      {% if field.errors %}
+
+        <div class="alert ">
+
+          {{ field.errors }}
+
+        </div>
+
+      {% endif %}
+
+      {% if field.name != 'karma' %}
+      <div class="form__field">
+
+        {{ field.label }}
+
+        {{ field }}
+
+      </div>
+
+      {% endif %}
+
+    {% endfor %}
+
+    <button type="submit">Регистрация</button>
+
+  </form>
+
+{% endblock %}

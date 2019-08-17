@@ -24,7 +24,7 @@ urlpatterns = [
     url('index', views.index, name='index'),
     url('auth', views.auth, name='auth'),
     url('last', views.last, name='last'),
-    url('reg', views.reg, name='register'),
+    url('fast', views.UserCreate.as_view(), name='register'),
     url('', views.index, name='index')
 ]
 

@@ -2,8 +2,15 @@
 ** Main body
 **/
 
-body {width: 100vw; height: auto; margin: 0; padding: 0; z-index: 1; scroll-behavior: smooth; background: rgb(235,235,235); opacity: 1}
+body {width: 100vw; height: auto; margin: 0; padding: 0; z-index: 1; overflow-x: hidden; scroll-behavior: smooth; background: rgb(235,235,235); opacity: 1}
+
 svg {fill: rgb(222, 226, 230)}
+
+body::-webkit-scrollbar {width: 0.35vw}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(253,164,79,.75);
+}
 
 /**
 ** Select types
@@ -30,7 +37,7 @@ svg {fill: rgb(222, 226, 230)}
 **/
 
 section.main[role="main"][handler] {width: 100%; display: block; z-index: 1; position: relative}
-section.main[role="main"][handler]>*[element] {width: 100%; height: auto; padding: 0; margin: 0; z-index: 1; background: rgb(240,240,240); overflow: hidden}
+section.main[role="main"][handler]>*[element] {width: 100%; height: auto; padding: 0; margin: 0; z-index: 1; overflow: hidden}
 
 /**
 ** Main header
@@ -46,7 +53,7 @@ header.main__header>section.top__header>.main__header__little {float: right; hei
   align-content: center; text-align: center; overflow: hidden; color: white; float: left; text-decoration: none}
 .header__big__navigation>.navigation__children--link:hover {background: rgba(24,24,40,.65); color: white}
 .header__big__navigation>.navigation__children--header {font-family: 'Segoe Bl'; margin-right: 0; font-weight: bolder; font-size: calc(100vw - 99.1vw)}
-.header__big__navigation>.navigation__children--link {font-family: 'Segoe Lt'; color: rgba(255,255,255,.6); font-size: calc(100vw - 99.1vw); cursor: pointer; transition: 450 background}
+.header__big__navigation>.navigation__children--link {font-family: 'Segoe Lt'; outline: none; color: rgba(255,255,255,.6); font-size: calc(100vw - 99.1vw); cursor: pointer; transition: 450 background}
 
 .main__header__little>input.header__little__input {padding: 0.5vh 0.35vw; height: 70%; float: right; width: 75%; outline: none; border: solid 2px white; cursor: pointer; border-radius: 5px}
 .main__header__little>input.header__little__input--button {margin: 0 0.5vw; margin-right: 1.5vw; font-family: 'Segoe Lt'; padding-left: 0.75vw; padding-right: 0.75vw; font-weight: bolder; width: auto;
@@ -62,7 +69,7 @@ section.bottom__header>.header__big__navigation>a.navigation__children--link:hov
 **/
 
 article[element]>section.element__blog {width: 60%; margin: 13.5vh 20%; margin-bottom: 0}
-section.element__blog>.element__blog__item {width: 100%; height: 7.5vw; box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); padding: 1vh 1vw; background: white; border-radius: 5px}
+section.element__blog>.element__blog__item {width: 100%; height: 7.5vw; margin: 2.5vh 0; box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); padding: 1vh 1vw; background: white; border-radius: 5px}
 section.element__blog>.element__blog__item--first {background: rgba(255,150,50,.85); margin-bottom: 2vh}
 .element__blog__item--first>.blog__item__icon {display: inline-block; width: auto; float: left}
 .element__blog__item--first>.blog__item__description {display: inline-flex; padding: 0 1vw; float: left; height: 100%; justify-content: center; align-items: center; align-content: center}
@@ -89,14 +96,13 @@ section.element__blog>.element__blog__item>.blog__item__tip {display: block; tex
 
 section.hidden {display: none}
 
-section.element__blog>.blog__auth {width: 85%; height: 80vh; margin: 7.5vh 7.5%; display: inline-flex; flex-direction: row; margin-bottom: 0}
+section.element__blog>.blog__auth {width: 85%; margin: 7.5vh 7.5%; display: inline-flex; flex-direction: row; margin-bottom: 0}
 section.element__blog>.blog__auth>.auth__part {width: 50%; display: inline-block}
 section.element__blog>.blog__auth>.auth__part>.part__text {width: 100%; box-sizing: border-box; padding: 1vh 1vw; text-align: center}
 .blog__auth>.auth__part>.part__text>h3 {font-family: 'Segoe Bl'; margin: 0; font-size: calc(100vw - 98.65vw)}
 .blog__auth>.auth__part>.part__text>span {font-family: 'Segoe Lt'; display: block; margin-bottom: 5vh}
 .blog__auth>.auth__part>.part__text>img {margin-bottom: 5vh; display: inline-block; justify-content: center; align-items: center}
 .blog__auth>.auth__part>.part__text>span[tip] {font-family: 'Segoe Bl'; color: rgba(33,33,33,.75); font-size: calc(100vw - 99.1vw)}
-
 
 .blog__auth>.auth__part>.part__workspace {width: 75%; float: right; height: 100%; display: inline-block}
 .part__workspace>.part__workspace__block {width: 100%; padding: 2.5vh 1.5vw; box-sizing: border-box;
@@ -105,3 +111,24 @@ section.element__blog>.blog__auth>.auth__part>.part__text {width: 100%; box-sizi
 .part__workspace>.part__workspace__block>.workspace__block__input--button {background: rgb(253,164,79); color: white}
 .part__workspace>.part__workspace__block>h3 {text-align: center; font-family: 'Segoe Bl'; margin-bottom: 0; line-height: 90%}
 .part__workspace>.part__workspace__block>span {display: block; text-align: center; font-family: 'Segoe Lt'; font-size: calc(100vw - 99.15vw); margin-bottom: 2vh}
+
+section.element__blog>.element__blog__item>.blog__item__workspace {padding: 0.1vh 1vw; display: block}
+section.element__blog>.element__blog__item>.blog__item__workspace>h3 {font-family: 'Segoe Lt'; margin: 0 0 1vh 0}
+section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspace__part {padding: 1vh 1vw; margin-bottom: 1.5vh; display: block; background-size: cover !important;
+  background-position: 50% 50% !important; border-radius: 2.5px}
+section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspace__part>h2 {font-family: 'Segoe Bl'; margin: 0; color: white}
+section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspace__part>span {font-family: 'Segoe Lt'; color: rgb(204,204,204)}
+.element__blog__item>.blog__item__workspace>.item__workspace__part>.workspace__part__info {display: block; margin-top: 1vh; margin-bottom: -1vh; padding: 0.5vh 1vw;
+  box-sizing: border-box; background: white; border-radius: 5px 5px 0 0}
+.blog__item__workspace>.item__workspace__part>.workspace__part__info>.workspace__part__info__get {width: 40%; display: inline-flex; padding: 0.5vh 1vw; box-sizing: border-box;
+  margin: 0 30%; float: right; margin-left: 0; flex-direction: row; justify-content: center; lign-items: center; align-content: center}
+.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction {font-family: 'Segoe Lt'; display: inline-block; padding: 0 0.75vw}
+.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>i:before {line-height: 75%}
+.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>span {display: inline-block; font-size: calc(100vw - 99vw); padding: 0 0.35vw}
+.item__workspace__part>.workspace__part__info>.info__get__url {display: inline-block; margin-top: 0.5vh; font-family: 'Segoe Lt'; padding: 0.5vh 0.75vw; color: white;
+  background: rgba(252,163,78,.95); cursor: pointer; border-radius: 15px; transition: 450ms background; transition-duration: 450ms; text-decoration: none}
+.item__workspace__part>.workspace__part__info>.info__get__url:hover {background: rgba(252,163,78,.85)}
+.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction:hover {cursor: pointer; color: rgba(252,163,78,.85)}
+section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspace__part>.workspace__part__tags {margin: 0 -0.5vw; padding: 0.5vh 0; display: block}
+.element__blog__item>.blog__item__workspace>.item__workspace__part>.workspace__part__tags>a {display: inline-block; padding: 0.5vh 0.5vw; color: white;
+  font-family: 'Segoe Bl'; box-sizing: border-box; text-decoration: none}

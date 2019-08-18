@@ -22,6 +22,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url('index', views.index, name='index'),
+    url('tags/(?P<slug>[\w-]+)', views.tags, name='tags'),
+    url('find', views.find, name='find'),
+    url('popularTags', views.popularTags, name='popularTags'),
     url('auth', views.auth, name='auth'),
     url('last', views.last, name='last'),
     url('fast', views.UserCreate.as_view(), name='register'),

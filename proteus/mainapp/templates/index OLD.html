@@ -1,0 +1,263 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+
+  {% load staticfiles %}
+
+  <!-- Main section -->
+  <section handler class="main" role="main">
+
+    <header class="main__header">
+
+      <section class="top__header">
+
+        <section class="main__header__big">
+
+          <nav class="header__big__navigation" unselectable>
+
+            <a href="/" class="navigation__children navigation__children--header">
+
+              <div elementType="text">Proteus</div>
+
+            </a>
+
+            <a href="/auth" class="navigation__children navigation__children--link">
+
+              <div elementType="text">Авторизация</div>
+
+            </a>
+
+            <a href="/last" class="navigation__children navigation__children--link">
+
+              <div elementType="text">Последние новости</div>
+
+            </a>
+
+            <a href="/reference" class="navigation__children navigation__children--link">
+
+              <div elementType="text">Рекомендации</div>
+
+            </a>
+
+          </nav>
+
+        </section>
+
+        <form class="main__header__little">
+
+          <input class="header__little__input" placeholder="Введите поисковый запрос" name="search" autocomplete="off">
+
+          <input value="Поиск" class="header__little__input header__little__input--button" type="submit">
+
+        </form>
+
+      </section>
+
+      <section class="bottom__header">
+
+        <nav class="header__big__navigation" unselectable>
+
+          <a href="reference" style="margin-left: 0.5vw" class="navigation__children navigation__children--header">
+
+            <div elementType="text">Популярные теги: </div>
+
+          </a>
+
+          <a href="/tags/nature" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Природа</div>
+
+          </a>
+
+          <a href="/tags/programming" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Программирование</div>
+
+          </a>
+
+          <a href="/tags/space" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Космос</div>
+
+          </a>
+
+          <a href="/tags/humor" class="navigation__children navigation__children--link">
+
+            <div elementType="text">Юмор</div>
+
+          </a>
+
+        </nav>
+
+      </section>
+
+    </header>
+
+    <!-- Main element initialization -->
+    <article element>
+
+      <section class="element__blog">
+
+        <div class="element__blog__item element__blog__item--first" unselectable>
+
+          <div class="blog__item__icon"><img height="100%" src="{% static 'css/white.png' %}"></div>
+
+          <div class="blog__item__description">
+
+            <h1>Proteus project<span>Информационная система</span></h1>
+
+          </div>
+
+        </div>
+
+        <div style="height: auto !important" class="element__blog__item element__blog__item--news" unselectable>
+
+          <h3>Последние публикации</h3>
+
+          <div class="blog__item__post">
+
+            <section class="item__post__rating">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-up"><use xlink:href="#icon--ui__rating-up"></use></svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-down"><use xlink:href="#icon--ui__rating-down"></use></svg>
+
+            </section>
+
+            <section class="item__post__info">
+
+              <div class="post__info__inner">
+
+                <h3>За словесными горами</h3>
+
+                <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего.</span>
+
+              </div>
+
+            </section>
+
+          </div>
+
+          <div class="blog__item__post">
+
+            <section class="item__post__rating">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-up"><use xlink:href="#icon--ui__rating-up"></use></svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-down"><use xlink:href="#icon--ui__rating-down"></use></svg>
+
+            </section>
+
+            <section class="item__post__info">
+
+              <div class="post__info__inner">
+
+                <h3>Просто тест</h3>
+
+                <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего.</span>
+
+              </div>
+
+            </section>
+
+          </div>
+
+          <div class="blog__item__post">
+
+            <section class="item__post__rating">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-up"><use xlink:href="#icon--ui__rating-up"></use></svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-down"><use xlink:href="#icon--ui__rating-down"></use></svg>
+
+            </section>
+
+            <section class="item__post__info">
+
+              <div class="post__info__inner">
+
+                <h3>2 - Просто тест</h3>
+
+                <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего.</span>
+
+              </div>
+
+            </section>
+
+          </div>
+
+          <a href="/news" class="blog__item__tip">Все новости</a>
+
+        </div>
+
+        <div style="height: auto !important" class="element__blog__item element__blog__item--news" unselectable>
+
+          <h3>Популярные публикации</h3>
+
+          <div class="blog__item__post">
+
+            <section class="item__post__rating">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-up"><use xlink:href="#icon--ui__rating-up"></use></svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-down"><use xlink:href="#icon--ui__rating-down"></use></svg>
+
+            </section>
+
+            <section class="item__post__info">
+
+              <div class="post__info__inner">
+
+                <h3>За словесными горами</h3>
+
+                <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего.</span>
+
+              </div>
+
+            </section>
+
+          </div>
+
+          <div class="blog__item__post">
+
+            <section class="item__post__rating">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-up"><use xlink:href="#icon--ui__rating-up"></use></svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="rating-down"><use xlink:href="#icon--ui__rating-down"></use></svg>
+
+            </section>
+
+            <section class="item__post__info">
+
+              <div class="post__info__inner">
+
+                <h3>Просто тест</h3>
+
+                <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего.</span>
+
+              </div>
+
+            </section>
+
+          </div>
+
+          <a href="/news" class="blog__item__tip">Все новости</a>
+
+        </div>
+
+      </section>
+
+    </article>
+
+  </section>
+
+  <section class="hidden">
+
+    <svg id="icon--ui__rating-up" viewBox="0 0 18 10"><path d="M17.85 9.65c.1-.1.15-.25.15-.35 0-.15-.05-.25-.15-.35L9.8.4C9.65.2 9.35.05 9 .05c-.35 0-.65.15-.8.35L.15 8.95a.6.6 0 0 0 0 .7c.15.2.5.35.8.35h16.1c.35 0 .65-.15.8-.35z" fill-rule="evenodd"></path></svg>
+
+    <svg id="icon--ui__rating-down" viewBox="0 0 18 10"><path d="M17.85.35c.1.1.15.25.15.35 0 .15-.05.25-.15.35L9.8 9.6c-.15.2-.45.35-.8.35-.35 0-.65-.15-.8-.35L.15 1.05a.6.6 0 0 1 0-.7C.3.15.65 0 .95 0h16.1c.35 0 .65.15.8.35z" fill-rule="evenodd"></path></svg>
+
+  </section>
+
+{% endblock %}

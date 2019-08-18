@@ -36,9 +36,9 @@
 
           <section class="blog__item__workspace">
 
-            <h3>Последние новости:</h3>
+            <h3>Найденные посты:{% if not feed %} пусто {% endif %}</h3>
 
-            {% for post in feed.items %}
+            {% for post in feed %}
 
             <div class="item__workspace__part" style="background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url({{post.links.1.href}})">
 

@@ -44,6 +44,8 @@
 
       </section>
 
+      {% if tags %}
+
       <section class="bottom__header">
 
         <nav class="header__big__navigation" unselectable>
@@ -54,16 +56,18 @@
 
           </a>
 
-          <a href="/tags/nature" class="navigation__children navigation__children--link">
+          {% for tag in tags %}
+          <a href="/tags/{{tag.split|join:'-'}}" class="navigation__children navigation__children--link">
 
-            <div elementType="text">Природа</div>
+            <div elementType="text">{{tag}}</div>
 
           </a>
-
-          {% include 'popularTags.html' %}
+          {% endfor %}
 
         </nav>
 
       </section>
+
+      {% endif %}
 
     </header>

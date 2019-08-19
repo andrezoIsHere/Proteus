@@ -2,43 +2,35 @@ from django import forms
 
 from .models import siteUsers
 
+from .globals import site
+
 from datetime import date, datetime, time
 
-#from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError
 
 class loginForm(forms.Form):
 
     login = forms.CharField(max_length = 100)
     password = forms.CharField(max_length = 250)
 
-class regForm(forms.ModelForm):
-
-    login = forms.CharField(max_length = 100)
-    email = forms.CharField(max_length = 200)
-    password = forms.CharField(max_length = 250)
-    karma = forms.IntegerField()
-
+class newForm(forms.ModelForm):
     class Meta:
-
         model = siteUsers
-        fields = ['login', 'email', 'password', 'karma']
+        fields = ['login', 'email', 'password']
 
         widgets = {
-            'login': forms.TextInput(attrs={'class': 'form__input'}),
-            'email': forms.TextInput(attrs={'class': 'form__input'}),
-            'password': forms.TextInput(attrs={'class': 'form__input'})
+            'login': forms.TextInput(),
+            'email': forms.TextInput(),
+            'password': forms.TextInput(),
+            'body': forms.Textarea()
         }
 
-    def clean_email(self):
-        new = self.data['email'].lower()
+    def clean_login(self):
 
-        return new
+        if not self.cleaned_data['login'] and not self.cleaned_data['email'] and not self.cleaned_data['password']:
+            raise ValidationError(site['messages']['notfulldata'])
 
-#    def save(self):
-#
-#        new = siteUsers.objects.create(
-#            login=self.data['login'],
-#            email=self.data['email'],
-#            password=self.data['password'],
-#            karma=self.data['karma']
-#        )
+        if len(self.cleaned_data['login']) <= 4:
+            raise ValidationError(site['messages']['littlelogin'])
+
+        return self.cleaned_data['login']

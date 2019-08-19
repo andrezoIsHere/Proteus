@@ -46,19 +46,35 @@
 
               </section>
 
-              <form method="post" action="/reg" class="part__workspace__block" style="padding: 0vh 1.5vw">
+              <form method="post" action="{% url 'auth' %}" class="part__workspace__block" style="padding: 0vh 1.5vw">
 
                 <h3>Нет аккаунта?</h3>
 
                 <span>Быстрая регистрация</span>
 
-                <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="login">
+                {% if newuser %}
 
-                <input class="workspace__block__input" placeholder="Введите вашу почту" type="email" autocomplete="off" name="email">
+                <input class="workspace__block__input" placeholder="Введите ваш логин" value="{{saved.login}}" autocomplete="off" name="newuser-login">
+                <input class="workspace__block__input" placeholder="Введите вашу почту" value="{{saved.email}}" type="email" autocomplete="off" name="newuser-email">
+                <input class="workspace__block__input" placeholder="Введите пароль" value="{{saved.password}}" autocomplete="off" type="password" name="newuser-password">
 
-                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" type="password" name="password">
+                {% else %}
 
-                <input class="workspace__block__input" placeholder="Повторите пароль" autocomplete="off" type="password" name="password2">
+                <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="newuser-login">
+                <input class="workspace__block__input" placeholder="Введите вашу почту" type="email" autocomplete="off" name="newuser-email">
+                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" type="password" name="newuser-password">
+
+                {% endif %}
+
+                {% for field in newuser %}
+
+                  {% if field.errors %}
+
+                    {{field.errors}}
+
+                  {% endif %}
+
+                {% endfor %}
 
                 {% csrf_token %}
 

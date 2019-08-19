@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from mainapp.globals import *
 from .models import siteUsers, rssPosts
-from .forms import newForm
+from .forms import newForm, loginForm
 from django.views.generic import View
 
 import feedparser, json, hashlib
@@ -20,13 +20,20 @@ def index(request):
 
 def auth(request):
 
+    try:
+        if request.COOKIES['login']: return redirect(last)
+    except:
+        print('User tried to enter in auth page with saved cookies')
+
     if request.method == 'GET':
 
         newUserForm = newForm()
 
-        return render(request, 'auth.html', {'values': site, 'newuser': newUserForm, 'tags': popularTags()})
+        loginUserForm = loginForm()
 
-    elif request.method == 'POST':
+        return render(request, 'auth.html', {'values': site, 'loginuser': loginUserForm, 'newuser': newUserForm, 'tags': popularTags()})
+
+    elif request.method == 'POST' and request.POST['newuser-login']:
 
         dct = {}
 
@@ -34,18 +41,65 @@ def auth(request):
 
             if object.find('-') >= 0:
 
-                print('\n\n' + str(object.split('-')[0]))
+                if str(object.split('-')[0]) == 'newuser':
 
-                if str(object.split('-')[0]) == 'newuser': dct.update({str(object.split('-')[1]): str(request.POST.get(object))})
-
-        print(dct)
+                    dct.update({str(object.split('-')[1]): str(request.POST.get(object))})
 
         bound_form = newForm(dct)
 
         if bound_form.is_valid():
 
-            new_user = bound_form.save()
-            return redirect(last)
+            try:
+
+                request.session['user-info'] = {}
+
+                another = siteUsers.objects.filter(login=bound_form.cleaned_data['login'])
+
+                if another[0].login:
+
+                    return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
+
+            except:
+
+                new_user = bound_form.save()
+
+                request.session['user-info'] = {}
+
+                response = redirect(last)
+
+                response.set_cookie(key='login', value=bound_form.cleaned_data['login']);
+                response.set_cookie(key='password', value=hashlib.sha224(bound_form.cleaned_data['password'].encode('utf-8')).hexdigest());
+                response.set_cookie(key='email', value=bound_form.cleaned_data['email']);
+
+                return response
+
+        return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
+
+    elif request.method == 'POST' and request.POST['loginuser-login']:
+
+        dct = {}
+
+        for object in request.POST:
+
+            if object.find('-') >= 0:
+
+                if str(object.split('-')[0]) == 'loginuser': dct.update({str(object.split('-')[1]): str(request.POST.get(object))})
+
+        bound_form = loginForm(dct)
+
+        if bound_form.is_valid():
+
+            new_user = bound_form.login()
+
+            request.session['user-info'] = {}
+
+            response = redirect(last)
+
+            response.set_cookie(key='login', value=bound_form.cleaned_data['login']);
+            response.set_cookie(key='password', value=hashlib.sha224(bound_form.cleaned_data['password'].encode('utf-8')).hexdigest());
+            response.set_cookie(key='email', value=bound_form.cleaned_data['email']);
+
+            return response
 
         return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
 

@@ -36,15 +36,17 @@
 
             <div class="part__workspace">
 
-              <section class="part__workspace__block">
+              <form method="post" action="{% url 'auth' %}" class="part__workspace__block">
 
-                <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="login">
+                {% csrf_token %}
 
-                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" name="password">
+                <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="loginuser-login">
+
+                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" name="loginuser-password">
 
                 <input class="workspace__block__input workspace__block__input--button" type="submit" value="Войти">
 
-              </section>
+              </form>
 
               <form method="post" action="{% url 'auth' %}" class="part__workspace__block" style="padding: 0vh 1.5vw">
 

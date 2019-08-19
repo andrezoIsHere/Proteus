@@ -10,8 +10,29 @@ from django.core.exceptions import ValidationError
 
 class loginForm(forms.Form):
 
-    login = forms.CharField(max_length = 100)
-    password = forms.CharField(max_length = 250)
+    login = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=250)
+
+    def login(self):
+
+        try:
+
+            result = siteUsers.objects.filter(login=login, password=password)[0].login;
+
+            if result: return True
+
+        except: return False
+
+    class Meta:
+        model = siteUsers
+        fields = ['login', 'email', 'password']
+
+        widgets = {
+            'login': forms.TextInput(),
+            'email': forms.TextInput(),
+            'password': forms.TextInput(),
+            'body': forms.Textarea()
+        }
 
 class newForm(forms.ModelForm):
     class Meta:
@@ -25,12 +46,26 @@ class newForm(forms.ModelForm):
             'body': forms.Textarea()
         }
 
+    def clean_password(self):
+
+        if len(self.cleaned_data['password']) <= 7: raise ValidationError(site['messages']['littlepass'])
+
+        elif len(self.cleaned_data['password']) >= 200: raise ValidationError(site['messages']['bigpass'])
+
+        return self.cleaned_data['password']
+
     def clean_login(self):
 
-        if not self.cleaned_data['login'] and not self.cleaned_data['email'] and not self.cleaned_data['password']:
-            raise ValidationError(site['messages']['notfulldata'])
+        try:
 
-        if len(self.cleaned_data['login']) <= 4:
-            raise ValidationError(site['messages']['littlelogin'])
+            another = siteUsers.objects.filter(login=self.cleaned_data['login'])
+
+            if another[0].login: raise ValidationError(site['messages']['exists'])
+
+        except:
+
+            if len(self.cleaned_data['login']) <= 4: raise ValidationError(site['messages']['littlelogin'])
+
+            elif len(self.cleaned_data['login']) >= 100: raise ValidationError(site['messages']['biglogin'])
 
         return self.cleaned_data['login']

@@ -141,3 +141,5 @@ section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspa
 section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspace__part>.workspace__part__tags {margin: 0 -0.5vw; padding: 0.5vh 0; display: block}
 .element__blog__item>.blog__item__workspace>.item__workspace__part>.workspace__part__tags>a {display: inline-block; padding: 0.5vh 0.5vw; color: white;
   font-family: 'Segoe Bl'; box-sizing: border-box; text-decoration: none}
+section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspace__alert {display: block; padding: 1vh 1vw; background: rgba(255,255,0,.5);
+  color: rgb(33,33,33); font-family: 'Segoe Lt'; margin: 0 25%; text-align: center; font-size: calc(100vw - 99vw); border: solid rgba(33,33,33,.25) 1px; border-radius: 5px}

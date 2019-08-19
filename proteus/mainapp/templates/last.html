@@ -36,7 +36,11 @@
 
           <section class="blog__item__workspace">
 
-            <h3>Последние новости:</h3>
+            {% if request.COOKIES.login %}
+            <div class="item__workspace__alert">Ваш аккаунт успешно авторизован</div>
+            {% endif %}
+
+            <h3>Последние новости: </h3>
 
             {% for post in feed.items %}
 

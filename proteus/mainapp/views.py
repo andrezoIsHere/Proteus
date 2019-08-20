@@ -115,13 +115,36 @@ def popular(request):
 
             parsed.update({hashlib.sha224(post['summary'].encode('utf-8')).hexdigest(): post})
 
-        print(pop)
+        sortedarr = sorted(pop.items(), key=lambda kv: kv[1][0], reverse=True)
 
-        sorted_x = sorted(pop.keys(), key=lambda kv: kv[1])
-
-        return render(request, 'popular.html', {'feed': getFeed(), 'values': site, 'tags': popularTags()})
+        return render(request, 'popular.html', {'feed': sortedarr, 'values': site, 'tags': popularTags()})
 
     else: return redirect(auth)
+
+def popularPosts(feed):
+
+    res = {}
+
+    for post in feed['items']:
+
+        token = hashlib.sha224(post['summary'].encode('utf-8')).hexdigest()
+
+        try:
+            result = rssPosts.objects.get(token=token)
+            res.update({token:
+                [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
+            })
+
+        except rssPosts.DoesNotExist:
+            new = rssPosts(token=token)
+            new.save()
+
+            result = rssPosts.objects.get(token=token)
+            res.update({token:
+                [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
+            })
+
+    return res
 
 def getFeed():
 
@@ -220,26 +243,15 @@ def find(request):
 
     return render(request, 'tags.html', {'feed': new, 'values': site, 'tags': popularTags()})
 
-def popularPosts(feed):
+def getPostInfo(token):
 
     res = {}
 
-    for post in feed['items']:
-
-        token = hashlib.sha224(post['summary'].encode('utf-8')).hexdigest()
-
-        try:
-            result = rssPosts.objects.get(token=token)
-
-            res.update({(int(result.likes) - int(result.dislikes)) * int(result.views): post})
-
-        except rssPosts.DoesNotExist:
-            new = rssPosts(token=token)
-            new.save()
-
-            result = rssPosts.objects.get(token=token)
-            #res.update({token: {'likes': result.likes, 'dislikes': result.dislikes, 'views': result.views}})
-            res.update({(int(result.likes) - int(result.dislikes)) * int(result.views): post})
+    try:
+        result = rssPosts.objects.get(token=token)
+        res.update({'likes': result.likes, 'dislikes': result.dislikes, 'views': result.views})
+    except:
+        res.update({'likes': 0, 'dislikes': 0, 'views': 0})
 
     return res
 

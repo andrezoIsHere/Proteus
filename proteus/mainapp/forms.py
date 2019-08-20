@@ -13,15 +13,26 @@ class loginForm(forms.Form):
     login = forms.CharField(max_length=100)
     password = forms.CharField(max_length=250)
 
-    def login(self):
+    def clean(self):
 
         try:
 
-            result = siteUsers.objects.filter(login=login, password=password)[0].login;
+            result = siteUsers.objects.filter(login=self.cleaned_data['login'], password=self.cleaned_data['password'])[0].login;
 
-            if result: return True
+            if result: return self.cleaned_data
 
-        except: return False
+        except:
+
+            raise ValidationError(site['messages']['noaccount'])
+
+            return self.cleaned_data
+
+    def save(self):
+
+        cleaned_data = super(loginForm, self).clean()
+
+        login = self.cleaned_data['login']
+        password = self.cleaned_data['password']
 
     class Meta:
         model = siteUsers

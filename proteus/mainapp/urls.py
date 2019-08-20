@@ -23,6 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     url('index', views.index, name='index'),
     url('tags/(?P<slug>[\w-]+)', views.tags, name='tags'),
+    url('popular', views.popular, name='popular'),
     url('find', views.find, name='find'),
     url('auth', views.auth, name='auth'),
     url('last', views.last, name='last'),

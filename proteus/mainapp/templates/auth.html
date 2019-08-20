@@ -40,11 +40,28 @@
 
                 {% csrf_token %}
 
+                <input type="hidden" name="type" value="loginuser">
+
+                {% if saved %}
+                <input class="workspace__block__input" placeholder="Введите ваш логин" value="{{saved.login}}" autocomplete="off" name="loginuser-login">
+
+                <input class="workspace__block__input" placeholder="Введите пароль" value="{{saved.password}}" autocomplete="off" name="loginuser-password">
+
+                {% for error in loginuser.non_field_errors %}
+
+                <ul class="errorlist"><li>{{error|escape}}</li></ul>
+
+                {% endfor %}
+
+                <input class="workspace__block__input workspace__block__input--button" type="submit" value="Войти">
+
+                {% else %}
                 <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="loginuser-login">
 
                 <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" name="loginuser-password">
 
                 <input class="workspace__block__input workspace__block__input--button" type="submit" value="Войти">
+                {% endif %}
 
               </form>
 
@@ -53,6 +70,8 @@
                 <h3>Нет аккаунта?</h3>
 
                 <span>Быстрая регистрация</span>
+
+                <input type="hidden" name="type" value="newuser">
 
                 {% if newuser %}
 

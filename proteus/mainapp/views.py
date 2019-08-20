@@ -7,6 +7,8 @@ from .models import siteUsers, rssPosts
 from .forms import newForm, loginForm
 from django.views.generic import View
 
+from pprint import pprint
+
 import feedparser, json, hashlib
 
 #from django.http import HttpResponse
@@ -16,7 +18,10 @@ import feedparser, json, hashlib
 rss = 'https://rus.azattyq.org/api/zrqomeuuo_'
 
 def index(request):
-    return render(request, 'index.html', {'values': site, 'tags': popularTags()})
+
+    feed = getFeed()
+
+    return render(request, 'index.html', {'values': site, 'feed': feed, 'tags': popularTags()})
 
 def auth(request):
 
@@ -33,7 +38,7 @@ def auth(request):
 
         return render(request, 'auth.html', {'values': site, 'loginuser': loginUserForm, 'newuser': newUserForm, 'tags': popularTags()})
 
-    elif request.method == 'POST' and request.POST['newuser-login']:
+    elif request.method == 'POST' and request.POST.get('type') == 'newuser':
 
         dct = {}
 
@@ -75,33 +80,48 @@ def auth(request):
 
         return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
 
-    elif request.method == 'POST' and request.POST['loginuser-login']:
+    elif request.method == 'POST' and request.POST.get('type') == 'loginuser':
 
         dct = {}
 
-        for object in request.POST:
-
-            if object.find('-') >= 0:
-
-                if str(object.split('-')[0]) == 'loginuser': dct.update({str(object.split('-')[1]): str(request.POST.get(object))})
+        dct.update({'login': str(request.POST.get('loginuser-login'))})
+        dct.update({'password': str(request.POST.get('loginuser-password'))})
 
         bound_form = loginForm(dct)
 
         if bound_form.is_valid():
 
-            new_user = bound_form.login()
-
-            request.session['user-info'] = {}
+            new_user = bound_form.save()
 
             response = redirect(last)
 
-            response.set_cookie(key='login', value=bound_form.cleaned_data['login']);
-            response.set_cookie(key='password', value=hashlib.sha224(bound_form.cleaned_data['password'].encode('utf-8')).hexdigest());
-            response.set_cookie(key='email', value=bound_form.cleaned_data['email']);
+            response.set_cookie(key='login', value=dct['login']);
+            response.set_cookie(key='password', value=hashlib.sha224(dct['password'].encode('utf-8')).hexdigest());
 
             return response
 
-        return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
+        return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'loginuser': bound_form, 'values': site, 'tags': popularTags()})
+
+def popular(request):
+
+    if request.COOKIES.get('login') and request.COOKIES.get('password'):
+
+        feed = getFeed()
+        pop = popularPosts(feed)
+
+        parsed = {}
+
+        for post in feed['items']:
+
+            parsed.update({hashlib.sha224(post['summary'].encode('utf-8')).hexdigest(): post})
+
+        print(pop)
+
+        sorted_x = sorted(pop.keys(), key=lambda kv: kv[1])
+
+        return render(request, 'popular.html', {'feed': getFeed(), 'values': site, 'tags': popularTags()})
+
+    else: return redirect(auth)
 
 def getFeed():
 
@@ -199,6 +219,29 @@ def find(request):
                     new[len(new)-1].update({key: post[key]})
 
     return render(request, 'tags.html', {'feed': new, 'values': site, 'tags': popularTags()})
+
+def popularPosts(feed):
+
+    res = {}
+
+    for post in feed['items']:
+
+        token = hashlib.sha224(post['summary'].encode('utf-8')).hexdigest()
+
+        try:
+            result = rssPosts.objects.get(token=token)
+
+            res.update({(int(result.likes) - int(result.dislikes)) * int(result.views): post})
+
+        except rssPosts.DoesNotExist:
+            new = rssPosts(token=token)
+            new.save()
+
+            result = rssPosts.objects.get(token=token)
+            #res.update({token: {'likes': result.likes, 'dislikes': result.dislikes, 'views': result.views}})
+            res.update({(int(result.likes) - int(result.dislikes)) * int(result.views): post})
+
+    return res
 
 def updatePosts(feed):
 

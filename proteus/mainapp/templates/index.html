@@ -38,59 +38,67 @@
 
             <h3>Последние новости:</h3>
 
-            <div class="item__workspace__part" style="background: linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url({% static 'test.jpg' %})">
+            <div class="item__workspace__part" style="background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url({{feed.items.0.links.1.href}})">
 
-              <h2>Рыбка села на шпагат</h2>
+              <h2>{{feed.items.0.title}}</h2>
 
-              <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я. Я так счастли</span>
+              <span>{{feed.items.0.summary}}</span>
+
+              <div class="workspace__part__tags">
+
+                {% for tag in feed.items.0.tags %}
+
+                <a href="/tags/{{tag.term.split|join:'-'}}">{{tag.term}}</a>
+
+                {% endfor %}
+
+              </div>
 
               <article class="workspace__part__info">
 
-                <section class="workspace__part__info__get">
+                <section class="workspace__part__info__get" style="width: auto !important">
 
-                  <div class="info__get__reaction"><i class="icon-up-bold"></i><span>12</span></div>
-
-                  <div class="info__get__reaction"><i class="icon-down-bold"></i><span>2</span></div>
-
-                  <div class="info__get__reaction"><i class="icon-eye"></i><span>75</span></div>
+                  <div class="info__get__reaction"><span>Дата публикации: {{feed.items.0.published}}</span></div>
 
                 </section>
 
-                <a class="info__get__url">Просмотреть статью</a>
+                <a target="_blank" href="{{feed.items.1.links.0.href}}" class="info__get__url">Просмотреть статью</a>
 
               </article>
 
             </div>
 
-            <div class="item__workspace__part" style="background: linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url({% static 'test.jpg' %})">
+            <div class="item__workspace__part" style="background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url({{feed.items.1.links.1.href}})">
 
-              <h2>Второй раз рыбка села на шпагат</h2>
+              <h2>{{feed.items.1.title}}</h2>
 
-              <span>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я. Я так счастли</span>
+              <span>{{feed.items.1.summary}}</span>
+
+              <div class="workspace__part__tags">
+
+                {% for tag in feed.items.1.tags %}
+
+                <a href="/tags/{{tag.term.split|join:'-'}}">{{tag.term}}</a>
+
+                {% endfor %}
+
+              </div>
 
               <article class="workspace__part__info">
 
-                <section class="workspace__part__info__get">
+                <section class="workspace__part__info__get" style="width: auto !important">
 
-                  <div class="info__get__reaction"><i class="icon-up-bold"></i><span>12</span></div>
-
-                  <div class="info__get__reaction"><i class="icon-down-bold"></i><span>2</span></div>
-
-                  <div class="info__get__reaction"><i class="icon-eye"></i><span>75</span></div>
+                  <div class="info__get__reaction"><span>Дата публикации: {{feed.items.1.published}}</span></div>
 
                 </section>
 
-                <a class="info__get__url">Просмотреть статью</a>
+                <a target="_blank" href="{{feed.items.1.links.0.href}}" class="info__get__url">Просмотреть статью</a>
 
               </article>
 
             </div>
 
           </section>
-
-        </div>
-
-        <div style="height: auto !important" class="element__blog__item element__blog__item--news" unselectable>
 
         </div>
 

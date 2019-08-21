@@ -140,6 +140,52 @@ def get_reaction(request):
 
     return response
 
+def add_view(request):
+
+    try:
+
+        if request.COOKIES:
+
+            if request.COOKIES.get(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest()) != 'viewed':
+
+                result = rssPosts.objects.get(token=request.GET['token'])
+
+                response = HttpResponse()
+
+                response.set_cookie(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest(), 'viewed')
+
+                result.views += 1
+
+                result.save()
+
+                return response
+
+            else:
+
+                response = HttpResponse(json.dumps({'error': {'errornum': 1003, 'errortext': "You can't do it more than 2 times"}}))
+
+                return response
+
+        else:
+
+            response = HttpResponse()
+
+            response.set_cookie(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest(), 'viewed')
+
+            result = rssPosts.objects.get(token=request.GET['token'])
+
+            result.views += 1
+
+            result.save()
+
+            return response
+
+    except:
+
+        response = HttpResponse(json.dumps({'error': {'errornum': 1004, 'errortext': "Not full input"}}))
+
+        return response
+
 def set_reaction(request):
 
     token = request.GET['token']
@@ -153,28 +199,22 @@ def set_reaction(request):
 
                 if rssPosts.objects.get(token=token):
 
+                    plus = ''
+
                     post = rssPosts.objects.get(token=token)
 
                     response = HttpResponse()
 
+                    #like
                     if reaction_type == 'like':
 
                         if request.COOKIES.get(token) == 'like':
 
-                            response.set_cookie(token, 'dislike')
-
-                            if post.dislikes > 0:
-
-                                post.dislikes -= 1
-                                post.likes += 1
-
-                            else: post.dislikes = 0
-
-                        elif request.COOKIES.get(token) == 'like':
-
                             response = HttpResponse(json.dumps({'error': {'errornum': 1003, 'errortext': "You can't do it more than 2 times"}}))
 
                             return response
+
+                            plus = 'like'
 
                         else:
 
@@ -185,25 +225,18 @@ def set_reaction(request):
                             if post.dislikes > 0: post.dislikes -= 1
                             else: post.dislikes = 0
 
+                            plus = 'like'
+
+                    #dislike
                     else:
 
                         if request.COOKIES.get(token) == 'dislike':
 
-                            response.set_cookie(token, 'like')
-
-                            post.dislikes -= 1
-
-                            if post.likes > 0:
-
-                                post.likes += 1
-
-                            else: post.likes = 0
-
-                        elif request.COOKIES.get(token) == 'dislike':
-
                             response = HttpResponse(json.dumps({'error': {'errornum': 1003, 'errortext': "You can't do it more than 2 times"}}))
 
                             return response
+
+                            plus = 'dislike'
 
                         else:
 
@@ -214,7 +247,9 @@ def set_reaction(request):
 
                             post.dislikes += 1
 
-                    response.write(json.dumps({'result': {'likes': post.likes, 'dislikes': post.dislikes}}))
+                            plus = 'dislike'
+
+                    response.write(json.dumps({'result': {'likes': post.likes, 'dislikes': post.dislikes, 'plus': plus}}))
 
                     post.save()
 
@@ -248,18 +283,36 @@ def popularPosts(feed):
 
         try:
             result = rssPosts.objects.get(token=token)
-            res.update({token:
-                [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
-            })
+
+            if int(result.views) == 0:
+
+                res.update({token:
+                    [(int(result.likes) - int(result.dislikes)) * 1, [post, getPostInfo(token)]]
+                })
+
+            else:
+
+                res.update({token:
+                    [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
+                })
 
         except rssPosts.DoesNotExist:
             new = rssPosts(token=token)
             new.save()
 
             result = rssPosts.objects.get(token=token)
-            res.update({token:
-                [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
-            })
+
+            if int(result.views) == 0:
+
+                res.update({token:
+                    [(int(result.likes) - int(result.dislikes)) * 1, [post, getPostInfo(token)]]
+                })
+
+            else:
+
+                res.update({token:
+                    [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
+                })
 
     return res
 

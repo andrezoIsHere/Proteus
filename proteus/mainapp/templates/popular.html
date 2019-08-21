@@ -74,14 +74,13 @@
                     <button type="submit" onClick="executor.setDislike(this.getAttribute('token'))" token="{{post.0}}" data="dislike"><i class="icon-down-bold"><span>{{post.1.1.1.dislikes}}</span></i></button>
                   </div>
 
-                  <form method="get" action="{% url 'popular' %}" class="info__get__reaction">
-                    <input type="hidden" name="token" value="{{post.0}}">
-                    <button type="submit"><i class="icon-eye"><span>{{post.1.1.1.views}}</span></i></button>
-                  </form>
+                  <div id="views" class="info__get__reaction">
+                    <a target="_blank" href="{{post.1.1.0.links.0.href}}" token="{{post.0}}" onClick="executor.addView(this.getAttribute('token'))"><i class="icon-eye"><span>{{post.1.1.1.views}}</span></i></a>
+                  </div>
 
                 </section>
 
-                <a target="_blank" href="{{post.1.1.0.links.0.href}}" class="info__get__url">Просмотреть статью</a>
+                <a target="_blank" token="{{post.0}}" onClick="executor.addView(this.getAttribute('token'))" href="{{post.1.1.0.links.0.href}}" class="info__get__url">Просмотреть статью</a>
 
               </article>
 

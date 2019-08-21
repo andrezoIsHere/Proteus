@@ -25,6 +25,7 @@ urlpatterns = [
     url('tags/(?P<slug>[\w-]+)', views.tags, name='tags'),
     url('set_reaction', views.set_reaction, name="set_reaction"),
     url('get_reaction', views.get_reaction, name="get_reaction"),
+    url('add_view', views.add_view, name="add_view"),
     url('popular', views.popular, name='popular'),
     url('find', views.find, name='find'),
     url('auth', views.auth, name='auth'),

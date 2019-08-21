@@ -6,6 +6,8 @@
 
 <link href="{% static 'css/fontello.css' %}" rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -60,25 +62,21 @@
 
               </div>
 
-              <article class="workspace__part__info">
+              <article class="workspace__part__info" id="{{post.0}}">
 
                 <section class="workspace__part__info__get">
 
-                  <form method="get" action="{% url 'popular' %}" class="info__get__reaction">
-                    <input type="hidden" name="token" value="{{post.0}}">
-                    <input type="hidden" name="type" value="like">
-                    <button type="submit"><i class="icon-up-bold"></i><span>{{post.1.1.1.likes}}</span></button>
-                  </form>
+                  <div id="likes" class="info__get__reaction">
+                    <button type="submit" onClick="executor.setLike(this.getAttribute('token'))" token="{{post.0}}" data="like"><i class="icon-up-bold"><span>{{post.1.1.1.likes}}</span></i></button>
+                  </div>
+
+                  <div id="dislikes" class="info__get__reaction">
+                    <button type="submit" onClick="executor.setDislike(this.getAttribute('token'))" token="{{post.0}}" data="dislike"><i class="icon-down-bold"><span>{{post.1.1.1.dislikes}}</span></i></button>
+                  </div>
 
                   <form method="get" action="{% url 'popular' %}" class="info__get__reaction">
                     <input type="hidden" name="token" value="{{post.0}}">
-                    <input type="hidden" name="type" value="dislike">
-                    <button type="submit"><i class="icon-down-bold"></i><span>{{post.1.1.1.dislikes}}</span></button>
-                  </form>
-
-                  <form method="get" action="{% url 'popular' %}" class="info__get__reaction">
-                    <input type="hidden" name="token" value="{{post.0}}">
-                    <button type="submit"><i class="icon-eye"></i><span>{{post.1.1.1.views}}</span></button>
+                    <button type="submit"><i class="icon-eye"><span>{{post.1.1.1.views}}</span></i></button>
                   </form>
 
                 </section>
@@ -101,12 +99,6 @@
 
   </section>
 
-  <section class="hidden">
-
-    <svg id="icon--ui__rating-up" viewBox="0 0 18 10"><path d="M17.85 9.65c.1-.1.15-.25.15-.35 0-.15-.05-.25-.15-.35L9.8.4C9.65.2 9.35.05 9 .05c-.35 0-.65.15-.8.35L.15 8.95a.6.6 0 0 0 0 .7c.15.2.5.35.8.35h16.1c.35 0 .65-.15.8-.35z" fill-rule="evenodd"></path></svg>
-
-    <svg id="icon--ui__rating-down" viewBox="0 0 18 10"><path d="M17.85.35c.1.1.15.25.15.35 0 .15-.05.25-.15.35L9.8 9.6c-.15.2-.45.35-.8.35-.35 0-.65-.15-.8-.35L.15 1.05a.6.6 0 0 1 0-.7C.3.15.65 0 .95 0h16.1c.35 0 .65.15.8.35z" fill-rule="evenodd"></path></svg>
-
-  </section>
+  <script src="{% static 'js/reactions.js' %}"></script>
 
 {% endblock %}

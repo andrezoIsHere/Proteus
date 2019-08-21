@@ -11,7 +11,7 @@ from pprint import pprint
 
 import feedparser, json, hashlib
 
-#from django.http import HttpResponse
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -120,6 +120,123 @@ def popular(request):
         return render(request, 'popular.html', {'feed': sortedarr, 'values': site, 'tags': popularTags()})
 
     else: return redirect(auth)
+
+def get_reaction(request):
+
+    res = {}
+
+    response = HttpResponse()
+
+    try:
+        result = rssPosts.objects.get(token=request.GET['token'])
+        res.update({'likes': result.likes, 'dislikes': result.dislikes, 'views': result.views})
+
+        response.write(json.dumps({'likes': result.likes, 'dislikes': result.dislikes, 'views': result.views}))
+
+    except:
+        res.update({'likes': 0, 'dislikes': 0, 'views': 0})
+
+        response.write(json.dumps({'likes': 0, 'dislikes': 0, 'views': 0}))
+
+    return response
+
+def set_reaction(request):
+
+    token = request.GET['token']
+    reaction_type = request.GET['type']
+
+    if token and reaction_type:
+
+        if type(token) == str and type(reaction_type) == str:
+
+            try:
+
+                if rssPosts.objects.get(token=token):
+
+                    post = rssPosts.objects.get(token=token)
+
+                    response = HttpResponse()
+
+                    if reaction_type == 'like':
+
+                        if request.COOKIES.get(token) == 'like':
+
+                            response.set_cookie(token, 'dislike')
+
+                            if post.dislikes > 0:
+
+                                post.dislikes -= 1
+                                post.likes += 1
+
+                            else: post.dislikes = 0
+
+                        elif request.COOKIES.get(token) == 'like':
+
+                            response = HttpResponse(json.dumps({'error': {'errornum': 1003, 'errortext': "You can't do it more than 2 times"}}))
+
+                            return response
+
+                        else:
+
+                            post.likes += 1
+
+                            response.set_cookie(token, 'like')
+
+                            if post.dislikes > 0: post.dislikes -= 1
+                            else: post.dislikes = 0
+
+                    else:
+
+                        if request.COOKIES.get(token) == 'dislike':
+
+                            response.set_cookie(token, 'like')
+
+                            post.dislikes -= 1
+
+                            if post.likes > 0:
+
+                                post.likes += 1
+
+                            else: post.likes = 0
+
+                        elif request.COOKIES.get(token) == 'dislike':
+
+                            response = HttpResponse(json.dumps({'error': {'errornum': 1003, 'errortext': "You can't do it more than 2 times"}}))
+
+                            return response
+
+                        else:
+
+                            if post.likes > 0: post.likes -= 1
+                            else: post.likes = 0
+
+                            response.set_cookie(token, 'dislike')
+
+                            post.dislikes += 1
+
+                    response.write(json.dumps({'result': {'likes': post.likes, 'dislikes': post.dislikes}}))
+
+                    post.save()
+
+                    return response
+
+            except Exception:
+
+                response = HttpResponse(json.dumps({'error': {'errornum': 1004, 'errortext': 'Accessing a nonexistent item'}}))
+
+                return response
+
+        else:
+
+            response = HttpResponse(json.dumps({'error': {'errornum': 1002, 'errortext': 'Incorrect input'}}))
+
+            return response
+
+    else:
+
+        response = HttpResponse(json.dumps({'error': {'errornum': 1001, 'errortext': 'Not full input'}}))
+
+        return response
 
 def popularPosts(feed):
 

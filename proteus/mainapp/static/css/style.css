@@ -134,8 +134,9 @@ section.element__blog>.element__blog__item>.blog__item__workspace>.item__workspa
 .item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction {font-family: 'Segoe Lt'; display: inline-block; padding: 0 0.75vw}
 .item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>button {background: none; font-size: calc(100vw - 99vw); font-family: 'Segoe Lt';
   display: inline-block; padding: 0; margin: 0; border: none}
-.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>i:before {line-height: 75%; margin: 0 0.1vw; padding: 0 0.1vw}
-.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>span {display: inline-block; font-size: calc(100vw - 99vw); padding: 0 0.45vw}
+.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>button>i:before {line-height: 75%; margin: 0 0.1vw; padding: 0 0.1vw}
+.item__workspace__part>.workspace__part__info>.workspace__part__info__get>.info__get__reaction>button>i>span {display: inline-block; font-style: normal !important; font-size: calc(100vw - 99vw);
+  padding: 0 0.15vw}
 .item__workspace__part>.workspace__part__info>.info__get__url {display: inline-block; margin-top: 0.5vh; font-family: 'Segoe Lt'; padding: 0.5vh 0.75vw; color: white;
   background: rgba(252,163,78,.95); cursor: pointer; border-radius: 15px; transition: 450ms background; transition-duration: 450ms; text-decoration: none}
 .item__workspace__part>.workspace__part__info>.info__get__url:hover {background: rgba(252,163,78,.85)}

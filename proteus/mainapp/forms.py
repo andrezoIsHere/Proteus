@@ -8,6 +8,8 @@ from datetime import date, datetime, time
 
 from django.core.exceptions import ValidationError
 
+from django.http import HttpResponse
+
 class loginForm(forms.Form):
 
     login = forms.CharField(max_length=100)

@@ -73,7 +73,7 @@ section.bottom__header>.header__big__navigation>a.navigation__children--link:hov
 article[element]>section.element__blog {width: 60%; margin: 13.5vh 20%; margin-bottom: 0}
 section.element__blog>.element__blog__item {width: 100%; height: 7.5vw; margin: 2.5vh 0; box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); padding: 1vh 1vw; background: white; border-radius: 5px}
 section.element__blog>.element__blog__item--first {background: rgba(255,150,50,.85); margin-bottom: 2vh}
-.element__blog__item--first>.blog__item__icon {display: inline-block; width: auto; float: left}
+.element__blog__item--first>.blog__item__icon {display: inline-block; float: left}
 .element__blog__item--first>.blog__item__description {display: inline-flex; padding: 0 1vw; float: left; height: 100%; justify-content: center; align-items: center; align-content: center}
 .element__blog__item--first>.blog__item__description>h1 {font-size: calc(100vh - 97vh); font-family: 'Segoe Bl'; font-weight: bolder; color: white}
 .element__blog__item--first>.blog__item__description>h1>span {display: block; font-family: 'Segoe Lt'; font-size: calc(100vh - 98.5vh); color: rgba(255,255,255,.75)}

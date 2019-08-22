@@ -1,7 +1,7 @@
 class Menu {
 
-  leaveAccount() {
-
+  leaveAccount(object) {
+    
     $.ajax({
       url: 'exit',
       xhrFields: {

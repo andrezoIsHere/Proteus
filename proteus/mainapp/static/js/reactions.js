@@ -1,5 +1,47 @@
 class Reactions {
 
+  getCookie(name) {
+
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+
+  }
+
+  updateSelected() {
+
+    let posts = document.querySelectorAll('.workspace__part__info');
+
+    for (var post = 0; post < posts.length; post++) {
+
+      let id = posts[post].getAttribute('id');
+
+      this.updateInfo(posts[post].getAttribute('id'));
+
+      let infobar = document.querySelector('.workspace__part__info[id="' + id + '"]>.workspace__part__info__get');
+
+      let likes = infobar.querySelector('.info__get__reaction#likes>button');
+
+      let dislikes = infobar.querySelector('.info__get__reaction#dislikes>button');
+
+      if(this.getCookie(id) == 'like') {
+
+        likes.setAttribute('selected', true);
+        dislikes.setAttribute('selected', false);
+
+      } else if(this.getCookie(id) == 'dislike') {
+
+        likes.setAttribute('selected', false);
+        dislikes.setAttribute('selected', true);
+
+      }
+
+    }
+
+  }
+
   updateInfo(token) {
 
     let infobar = document.querySelector('.workspace__part__info[id="' + token + '"]>.workspace__part__info__get');
@@ -117,3 +159,5 @@ class Reactions {
 }
 
 executor = new Reactions()
+
+document.addEventListener("DOMContentLoaded", executor.updateSelected());

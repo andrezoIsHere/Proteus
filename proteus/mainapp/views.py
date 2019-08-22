@@ -6,8 +6,8 @@ from mainapp.globals import *
 from .models import siteUsers, rssPosts
 from .forms import newForm, loginForm
 from django.views.generic import View
-
-from pprint import pprint
+#from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
 
 import feedparser, json, hashlib
 
@@ -16,6 +16,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 rss = 'https://rus.azattyq.org/api/zrqomeuuo_'
+rss2 = 'https://rus.azattyq.org/api/zororegtor'
 
 def index(request):
 
@@ -120,6 +121,19 @@ def popular(request):
         return render(request, 'popular.html', {'feed': sortedarr, 'values': site, 'tags': popularTags()})
 
     else: return redirect(auth)
+
+def exit(request):
+
+    cooks = request.COOKIES
+    response = HttpResponseRedirect('index')
+
+    for obj in cooks: response.delete_cookie(obj)
+
+    return response
+
+'''def filter_feed(request):
+
+    if request.GET.get('filter') == 'tags':'''
 
 def get_reaction(request):
 

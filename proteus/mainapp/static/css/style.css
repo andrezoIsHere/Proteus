@@ -2,7 +2,7 @@
 ** Main body
 **/
 
-body {width: 100vw; height: auto; margin: 0; padding: 0; z-index: 1; overflow-x: hidden; scroll-behavior: smooth; background: rgb(235,235,235); opacity: 1}
+body {width: 100vw; height: auto; margin: 0; padding: 0; z-index: 1; text-rendering: optimizeSpeed !important; overflow-x: hidden; scroll-behavior: smooth; background: rgb(225,225,225); opacity: 1}
 
 svg {fill: rgb(222, 226, 230)}
 
@@ -11,6 +11,8 @@ body::-webkit-scrollbar {width: 0.35vw}
 body::-webkit-scrollbar-thumb {
   background-color: rgba(253,164,79,.75);
 }
+
+[header--info] {font-family: 'Segoe Bl'}
 
 /**
 ** Select types
@@ -52,7 +54,7 @@ header.main__header>section.top__header>.main__header__little {float: right; hei
 .header__big__navigation>.navigation__children {margin: 0 0.5vw; padding: 0 0.5vw; height: 100%; display: inline-flex; align-items: center;
   align-content: center; text-align: center; overflow: hidden; color: white; float: left; text-decoration: none}
 .header__big__navigation>.navigation__children--link:hover {background: rgba(24,24,40,.65); color: white}
-.header__big__navigation>.navigation__children--header {font-family: 'Segoe Bl'; margin-right: 0; font-weight: bolder; font-size: calc(100vw - 99.1vw)}
+.header__big__navigation>.navigation__children--header {font-family: 'Segoe Bl'; outline: none; margin-right: 0; font-weight: bolder; font-size: calc(100vw - 99.1vw)}
 .header__big__navigation>.navigation__children--link {font-family: 'Segoe Lt'; outline: none; color: rgba(255,255,255,.6); font-size: calc(100vw - 99.1vw); cursor: pointer; transition: 450 background}
 
 .main__header__little>input.header__little__input {padding: 0.5vh 0.35vw; height: 70%; float: right; width: 75%; outline: none; border: solid 2px white; cursor: pointer; border-radius: 5px}
@@ -90,6 +92,10 @@ section.element__blog>.element__blog__item--first {background: rgba(255,150,50,.
 .item__post__info>.post__info__inner {display: block; width: 100%; padding-bottom: 0.75vh; border-bottom: 1px solid rgb(222, 226, 230) !important}
 .item__post__info>.post__info__inner>h3 {font-family: 'Segoe Lt'; margin: 0; font-size: calc(100vh - 98.1vh); padding: 0; line-height: 90%}
 .item__post__info>.post__info__inner>span {font-size: calc(100vh - 98.35vh); margin-top: 0}
+
+/**
+** Blog elements
+**/
 
 section.element__blog>.element__blog__item>.blog__item__tip {display: block; text-align: right; font-family: 'Segoe Lt'; color: rgb(0, 123, 255); text-decoration: none;
   cursor: pointer}

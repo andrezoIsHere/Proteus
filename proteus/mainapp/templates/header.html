@@ -1,40 +1,54 @@
 <header class="main__header">
 
+  {% load staticfiles %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
       <section class="top__header">
 
         <section class="main__header__big">
 
           <nav class="header__big__navigation" unselectable>
 
-            <a tabindex='-1' href="/" class="navigation__children navigation__children--header">
+            <a title="Информационная система" tabindex='-1' href="/" class="navigation__children navigation__children--header">
 
               <div elementType="text">Proteus</div>
 
             </a>
 
-            <a tabindex='-1' href="/auth" class="navigation__children navigation__children--link">
+            {% if not request.COOKIES.login %}
+            <a title="Страница авторизации" tabindex='-1' href="/auth" class="navigation__children navigation__children--link">
 
               <div elementType="text">Авторизация</div>
 
             </a>
+            {% endif %}
 
-            <a tabindex='-1' href="/last" class="navigation__children navigation__children--link">
+            <a title="Последние новости" tabindex='-1' href="/last" class="navigation__children navigation__children--link">
 
               <div elementType="text">Последние новости</div>
 
             </a>
 
-            <a tabindex='-1' href="/popular" class="navigation__children navigation__children--link">
+            <a title="Популярные новости" tabindex='-1' href="/popular" class="navigation__children navigation__children--link">
 
               <div elementType="text">Популярное</div>
 
             </a>
 
+            {% if request.COOKIES.login %}
+            <a title="Выход из аккаунта" id="leave" onClick="menuWork.leaveAccount()" tabindex='-1' class="navigation__children navigation__children--link">
+
+              <div elementType="text">Выйти из аккаунта</div>
+
+            </a>
+            {% endif %}
+
           </nav>
 
         </section>
 
-        <form action="{% url 'find' %}" class="main__header__little" method="get">
+        <form title="Поисковая система" action="{% url 'find' %}" class="main__header__little" method="get">
 
           <input tabindex="1" class="header__little__input" placeholder="Введите поисковый запрос" name="search" autocomplete="off">
 
@@ -50,14 +64,14 @@
 
         <nav class="header__big__navigation" unselectable>
 
-          <a href="reference" style="margin-left: 0.5vw" class="navigation__children navigation__children--header">
+          <a title="Список популярных тегов" href="reference" style="margin-left: 0.5vw" class="navigation__children navigation__children--header">
 
             <div elementType="text">Популярные теги: </div>
 
           </a>
 
           {% for tag in tags %}
-          <a href="/tags/{{tag.split|join:'-'}}" class="navigation__children navigation__children--link">
+          <a title="{{tag}}" href="/tags/{{tag.split|join:'-'}}" class="navigation__children navigation__children--link">
 
             <div elementType="text">{{tag}}</div>
 
@@ -69,5 +83,9 @@
       </section>
 
       {% endif %}
+
+      <!--<script src="{% static 'js/search.js' %}"></script>-->
+
+      <script src="{% static 'js/menu-work.js' %}"></script>
 
     </header>

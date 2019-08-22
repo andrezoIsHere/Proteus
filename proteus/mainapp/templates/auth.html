@@ -45,7 +45,7 @@
                 {% if saved %}
                 <input class="workspace__block__input" placeholder="Введите ваш логин" value="{{saved.login}}" autocomplete="off" name="loginuser-login">
 
-                <input class="workspace__block__input" placeholder="Введите пароль" value="{{saved.password}}" autocomplete="off" name="loginuser-password">
+                <input class="workspace__block__input" type="password" placeholder="Введите пароль" value="{{saved.password}}" autocomplete="off" name="loginuser-password">
 
                 {% for error in loginuser.non_field_errors %}
 
@@ -58,7 +58,7 @@
                 {% else %}
                 <input class="workspace__block__input" placeholder="Введите ваш логин" autocomplete="off" name="loginuser-login">
 
-                <input class="workspace__block__input" placeholder="Введите пароль" autocomplete="off" name="loginuser-password">
+                <input class="workspace__block__input" type="password" placeholder="Введите пароль" autocomplete="off" name="loginuser-password">
 
                 <input class="workspace__block__input workspace__block__input--button" type="submit" value="Войти">
                 {% endif %}

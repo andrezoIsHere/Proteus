@@ -32,7 +32,7 @@
 
         </div>
 
-        <div style="height: auto !important" class="element__blog__item element__blog__item--news" unselectable>
+        <div style="height: auto !important; margin-bottom: 0 !important" class="element__blog__item element__blog__item--news" unselectable>
 
           <section class="blog__item__workspace">
 
@@ -93,6 +93,36 @@
                 </section>
 
                 <a target="_blank" href="{{feed.items.1.links.0.href}}" class="info__get__url">Просмотреть статью</a>
+
+              </article>
+
+            </div>
+
+            <div class="item__workspace__part" style="background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url({{feed.items.2.links.1.href}})">
+
+              <h2>{{feed.items.2.title}}</h2>
+
+              <span>{{feed.items.2.summary}}</span>
+
+              <div class="workspace__part__tags">
+
+                {% for tag in feed.items.2.tags %}
+
+                <a href="/tags/{{tag.term.split|join:'-'}}">{{tag.term}}</a>
+
+                {% endfor %}
+
+              </div>
+
+              <article class="workspace__part__info">
+
+                <section class="workspace__part__info__get" style="width: auto !important">
+
+                  <div class="info__get__reaction"><span>Дата публикации: {{feed.items.2.published}}</span></div>
+
+                </section>
+
+                <a target="_blank" href="{{feed.items.2.links.0.href}}" class="info__get__url">Просмотреть статью</a>
 
               </article>
 

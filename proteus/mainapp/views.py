@@ -131,9 +131,10 @@ def exit(request):
 
     return response
 
-'''def filter_feed(request):
+def filter_feed(request):
 
-    if request.GET.get('filter') == 'tags':'''
+    if request.GET.get('filter') == 'tags':
+        print('bad')
 
 def get_reaction(request):
 

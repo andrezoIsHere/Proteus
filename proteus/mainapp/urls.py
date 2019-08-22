@@ -23,7 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     url('index', views.index, name='index'),
     url('tags/(?P<slug>[\w-]+)', views.tags, name='tags'),
-    url('filter_feed', view.filter_feed, name="filter_feed"),
+    url('filter_feed', views.filter_feed, name="filter_feed"),
     url('exit', views.exit, name="exit"),
     url('set_reaction', views.set_reaction, name="set_reaction"),
     url('get_reaction', views.get_reaction, name="get_reaction"),

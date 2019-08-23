@@ -210,9 +210,31 @@ def set_reaction(request):
 
         if type(token) == str and type(reaction_type) == str:
 
+            result = True
+
             try:
 
-                if rssPosts.objects.get(token=token):
+                getReactions = userReactions.objects.get(login=request.COOKIES.get('login'),token=token)
+
+                if getReactions['reaction'] == reaction_type: result = False
+
+                else: result = True
+
+            except:
+
+                '''user = {'login': request.COOKIES.get('login'), 'reaction': reaction_type, 'posttoken': token}
+
+                print(user)
+
+                reactionSet = newReaction(user)
+
+                if reactionSet.is_valid(): reactionSet.save()'''
+
+                result = True
+
+            try:
+
+                if rssPosts.objects.get(token=token) and result:
 
                     plus = ''
 
@@ -267,6 +289,12 @@ def set_reaction(request):
                     response.write(json.dumps({'result': {'likes': post.likes, 'dislikes': post.dislikes, 'plus': plus}}))
 
                     post.save()
+
+                    return response
+
+                else:
+
+                    response = HttpResponse(json.dumps({'error': {'errornum': 1003, 'errortext': "You can't do it more than 2 times"}}))
 
                     return response
 

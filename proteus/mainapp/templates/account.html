@@ -1,0 +1,115 @@
+{% extends "wrapper.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+
+<link href="{% static 'css/fontello.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+  <!-- Main section -->
+  <section handler class="main" role="main">
+
+    {% include 'header.html' %}
+
+    <!-- Main element initialization -->
+    <article element>
+
+      <section class="element__blog">
+
+        <div class="element__blog__item element__blog__item--first" unselectable>
+
+          <div class="blog__item__icon"><img height="100%" src="{% static 'css/white.png' %}"></div>
+
+          <div class="blog__item__description">
+
+            <h1>Proteus project<span>Информационная система</span></h1>
+
+          </div>
+
+        </div>
+
+        <div style="height: auto !important" class="element__blog__item element__blog__item--news" unselectable>
+
+          <section class="blog__item__workspace">
+
+            <h2>Ваш личный кабинет</h2>
+
+            <div class="item__workspace__userspace">
+
+              <div class="workspace__userspace__row">
+
+                <div id="world" class="workspace__userspace__block">
+
+                  <h3>Мир</h3>
+
+                  <span>Мир в течение текущих суток, что происходит в мире главного и почему? Как мировые тенденции могут повлиять на Казахстан? Материалы веб-сайта Радио Азаттык - Radioazattyk.org. Радио Азаттык - Казахская редакция Радио «Свободная Европа»/Радио «Свобода».</span>
+
+                  <button onClick="select(this.parentNode)">Выбрать</button>
+
+                </div>
+
+                <div id="main" class="workspace__userspace__block">
+
+                  <h3>Главные новости</h3>
+
+                  <span>Главные события Казахстана за прошедшие сутки, независимая информация о положении в Казахстане. Материалы веб-сайта Радио Азаттык - Rus.azattyq.org. Радио Азаттык - Казахская редакция Радио «Свободная Европа»/Радио «Свобода».</span>
+
+                  <button onClick="select(this.parentNode)">Выбрать</button>
+
+                </div>
+
+                <div id="politics" class="workspace__userspace__block">
+
+                  <h3>Политика</h3>
+
+                  <span>Материалы веб-сайта Радио Азаттык - rus.azattyq.org. Радио Азаттык - Казахская редакция Радио «Свободная Европа»/Радио «Свобода». Независимый анализ, информация о главных событиях и проблемах в политике Казахстана.</span>
+
+                  <button onClick="select(this.parentNode)">Выбрать</button>
+
+                </div>
+
+              </div>
+
+              <div class="workspace__userspace__row">
+
+                <div id="asia" class="workspace__userspace__block">
+
+                  <h3>Центральная Азия</h3>
+
+                  <span>Пять "станов" Центральной Азии имеют общую тенденцию усиления авторитаризма, а вместе с тем и взаимной дезинтеграции. Материалы веб-сайта Радио Азаттык - Radioazattyk.org. Радио Азаттык - Казахская редакция Радио «Свободная Европа»/Радио «Свобода».</span>
+
+                  <button onClick="select(this.parentNode)">Выбрать</button>
+
+                </div>
+
+                <div id="kazakhstan" class="workspace__userspace__block">
+
+                  <h3>Казахстан</h3>
+
+                  <span>Как Казахстан вливается в международное сообщество, проблемы трансформации Казахстана из авторитарного государства в демократическое. </span>
+
+                  <button onClick="select(this.parentNode)">Выбрать</button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <script src="{% static 'js/selector.js' %}"></script>
+
+        </div>
+
+      </section>
+
+    </article>
+
+  </section>
+
+{% endblock %}

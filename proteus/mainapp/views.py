@@ -15,16 +15,66 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-rss = 'https://rus.azattyq.org/api/zrqomeuuo_'
-rss2 = 'https://rus.azattyq.org/api/zororegtor'
+#rss = 'https://rus.azattyq.org/api/zrqomeuuo_'
+#rss2 = 'https://rus.azattyq.org/api/zororegtor'
+
+def checkRss(cooks):
+
+    try:
+
+        if not cooks['rss-client']: return 'https://rus.azattyq.org/api/zrqomeuuo_'
+        else: return cooks['rss-client']
+
+    except:
+
+        return 'https://rus.azattyq.org/api/zrqomeuuo_'
+
+def set_global_url(request):
+
+    rss = checkRss(request.COOKIES)
+
+    try:
+
+        if request.GET:
+
+            if request.GET.get('url'):
+
+                response = HttpResponse()
+                response.set_cookie(key='rss-client', value=request.GET.get('url'), expires=99999999)
+
+                response.write('true')
+
+                return response
+
+        else: return HttpResponse('Server returned bad result')
+
+    except:
+
+        return HttpResponse('Server returned bad result')
+
+def account(request):
+
+    rss = checkRss(request.COOKIES)
+
+    try:
+        if not request.COOKIES['login']: return redirect(auth)
+
+    except:
+        return redirect(auth)
+
+    return render(request, 'account.html', {'values': site, 'tags': popularTags(request)})
 
 def index(request):
 
-    feed = getFeed()
+    rss = checkRss(request.COOKIES)
 
-    return render(request, 'index.html', {'values': site, 'feed': feed, 'tags': popularTags()})
+    feed = getFeed(request)
+
+    return render(request, 'index.html', {'values': site, 'feed': feed, 'tags': popularTags(request)})
 
 def auth(request):
+
+    rss = checkRss(request.COOKIES)
 
     try:
         if request.COOKIES['login']: return redirect(last)
@@ -37,7 +87,7 @@ def auth(request):
 
         loginUserForm = loginForm()
 
-        return render(request, 'auth.html', {'values': site, 'loginuser': loginUserForm, 'newuser': newUserForm, 'tags': popularTags()})
+        return render(request, 'auth.html', {'values': site, 'loginuser': loginUserForm, 'newuser': newUserForm, 'tags': popularTags(request)})
 
     elif request.method == 'POST' and request.POST.get('type') == 'newuser':
 
@@ -63,7 +113,7 @@ def auth(request):
 
                 if another[0].login:
 
-                    return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
+                    return render(request, 'auth.html', {'feed': getFeed(request), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags(request)})
 
             except:
 
@@ -73,13 +123,13 @@ def auth(request):
 
                 response = redirect(last)
 
-                response.set_cookie(key='login', value=bound_form.cleaned_data['login']);
-                response.set_cookie(key='password', value=hashlib.sha224(bound_form.cleaned_data['password'].encode('utf-8')).hexdigest());
-                response.set_cookie(key='email', value=bound_form.cleaned_data['email']);
+                response.set_cookie(key='login', value=bound_form.cleaned_data['login'], expires=99999999);
+                response.set_cookie(key='password', value=hashlib.sha224(bound_form.cleaned_data['password'].encode('utf-8')).hexdigest(), expires=99999999);
+                response.set_cookie(key='email', value=bound_form.cleaned_data['email'], expires=99999999);
 
                 return response
 
-        return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags()})
+        return render(request, 'auth.html', {'feed': getFeed(request), 'saved': bound_form.cleaned_data, 'newuser': bound_form, 'values': site, 'tags': popularTags(request)})
 
     elif request.method == 'POST' and request.POST.get('type') == 'loginuser':
 
@@ -96,19 +146,21 @@ def auth(request):
 
             response = redirect(last)
 
-            response.set_cookie(key='login', value=dct['login']);
-            response.set_cookie(key='password', value=hashlib.sha224(dct['password'].encode('utf-8')).hexdigest());
+            response.set_cookie(key='login', value=dct['login'], expires=99999999);
+            response.set_cookie(key='password', value=hashlib.sha224(dct['password'].encode('utf-8')).hexdigest(), expires=99999999);
 
             return response
 
-        return render(request, 'auth.html', {'feed': getFeed(), 'saved': bound_form.cleaned_data, 'loginuser': bound_form, 'values': site, 'tags': popularTags()})
+        return render(request, 'auth.html', {'feed': getFeed(request), 'saved': bound_form.cleaned_data, 'loginuser': bound_form, 'values': site, 'tags': popularTags(request)})
 
 def popular(request):
 
+    rss = checkRss(request.COOKIES)
+
     if request.COOKIES.get('login') and request.COOKIES.get('password'):
 
-        feed = getFeed()
-        pop = popularPosts(feed)
+        feed = getFeed(request)
+        pop = popularPosts(request, feed)
 
         parsed = {}
 
@@ -118,11 +170,13 @@ def popular(request):
 
         sortedarr = sorted(pop.items(), key=lambda kv: kv[1][0], reverse=True)
 
-        return render(request, 'popular.html', {'feed': sortedarr, 'values': site, 'tags': popularTags()})
+        return render(request, 'popular.html', {'feed': sortedarr, 'values': site, 'tags': popularTags(request)})
 
     else: return redirect(auth)
 
 def exit(request):
+
+    rss = checkRss(request.COOKIES)
 
     cooks = request.COOKIES
     response = HttpResponseRedirect('index')
@@ -133,10 +187,14 @@ def exit(request):
 
 def filter_feed(request):
 
+    rss = checkRss(request.COOKIES)
+
     if request.GET.get('filter') == 'tags':
         print('bad')
 
 def get_reaction(request):
+
+    rss = checkRss(request.COOKIES)
 
     res = {}
 
@@ -157,6 +215,8 @@ def get_reaction(request):
 
 def add_view(request):
 
+    rss = checkRss(request.COOKIES)
+
     try:
 
         if request.COOKIES:
@@ -167,7 +227,7 @@ def add_view(request):
 
                 response = HttpResponse()
 
-                response.set_cookie(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest(), 'viewed')
+                response.set_cookie(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest(), 'viewed', expires=99999999)
 
                 result.views += 1
 
@@ -185,7 +245,7 @@ def add_view(request):
 
             response = HttpResponse()
 
-            response.set_cookie(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest(), 'viewed')
+            response.set_cookie(hashlib.sha224(request.GET['token'].encode('utf-8')).hexdigest(), 'viewed', expires=99999999)
 
             result = rssPosts.objects.get(token=request.GET['token'])
 
@@ -202,6 +262,8 @@ def add_view(request):
         return response
 
 def set_reaction(request):
+
+    rss = checkRss(request.COOKIES)
 
     token = request.GET['token']
     reaction_type = request.GET['type']
@@ -257,7 +319,7 @@ def set_reaction(request):
 
                             post.likes += 1
 
-                            response.set_cookie(token, 'like')
+                            response.set_cookie(token, 'like', expires=99999999)
 
                             if post.dislikes > 0: post.dislikes -= 1
                             else: post.dislikes = 0
@@ -280,7 +342,7 @@ def set_reaction(request):
                             if post.likes > 0: post.likes -= 1
                             else: post.likes = 0
 
-                            response.set_cookie(token, 'dislike')
+                            response.set_cookie(token, 'dislike', expires=99999999)
 
                             post.dislikes += 1
 
@@ -316,7 +378,9 @@ def set_reaction(request):
 
         return response
 
-def popularPosts(feed):
+def popularPosts(request, feed):
+
+    rss = checkRss(request.COOKIES)
 
     res = {}
 
@@ -330,13 +394,13 @@ def popularPosts(feed):
             if int(result.views) == 0:
 
                 res.update({token:
-                    [(int(result.likes) - int(result.dislikes)) * 1, [post, getPostInfo(token)]]
+                    [(int(result.likes) - int(result.dislikes)) * 1, [post, getPostInfo(request, token)]]
                 })
 
             else:
 
                 res.update({token:
-                    [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
+                    [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(request, token)]]
                 })
 
         except rssPosts.DoesNotExist:
@@ -348,30 +412,34 @@ def popularPosts(feed):
             if int(result.views) == 0:
 
                 res.update({token:
-                    [(int(result.likes) - int(result.dislikes)) * 1, [post, getPostInfo(token)]]
+                    [(int(result.likes) - int(result.dislikes)) * 1, [post, getPostInfo(request, token)]]
                 })
 
             else:
 
                 res.update({token:
-                    [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(token)]]
+                    [(int(result.likes) - int(result.dislikes)) * int(result.views), [post, getPostInfo(request, token)]]
                 })
 
     return res
 
-def getFeed():
+def getFeed(request):
+
+    rss = checkRss(request.COOKIES)
 
     feed = feedparser.parse(rss)
 
-    updatePosts(feed)
+    updatePosts(request, feed)
 
     return feed
 
-def popularTags():
+def popularTags(request):
+    
+    rss = checkRss(request.COOKIES)
 
     feed = feedparser.parse(rss)
 
-    updatePosts(feed)
+    updatePosts(request, feed)
 
     tag_names = dict()
 
@@ -388,12 +456,14 @@ def popularTags():
 
 def tags(request, slug):
 
+    rss = checkRss(request.COOKIES)
+
     slugs = slug.replace('-', ' ').lower()
     feed = feedparser.parse(rss)
 
     arr = slugs.split('&')
 
-    updatePosts(feed)
+    updatePosts(request, feed)
 
     tag_names = dict()
 
@@ -421,14 +491,16 @@ def tags(request, slug):
 
                         new[len(new)-1].update({key: post[key]})
 
-    return render(request, 'tags.html', {'feed': new, 'values': site, 'tags': popularTags()})
+    return render(request, 'tags.html', {'feed': new, 'values': site, 'tags': popularTags(request)})
 
 def find(request):
+
+    rss = checkRss(request.COOKIES)
 
     slug = request.GET.get('search', default='Мир').lower()
     feed = feedparser.parse(rss)
 
-    updatePosts(feed)
+    updatePosts(request, feed)
 
     tag_names = dict()
 
@@ -454,9 +526,11 @@ def find(request):
 
                     new[len(new)-1].update({key: post[key]})
 
-    return render(request, 'tags.html', {'feed': new, 'values': site, 'tags': popularTags()})
+    return render(request, 'tags.html', {'feed': new, 'values': site, 'tags': popularTags(request)})
 
-def getPostInfo(token):
+def getPostInfo(request, token):
+
+    rss = checkRss(request.COOKIES)
 
     res = {}
 
@@ -468,7 +542,9 @@ def getPostInfo(token):
 
     return res
 
-def updatePosts(feed):
+def updatePosts(request, feed):
+
+    rss = checkRss(request.COOKIES)
 
     for post in feed['items']:
 
@@ -483,12 +559,11 @@ def updatePosts(feed):
 
 def last(request):
 
+    rss = checkRss(request.COOKIES)
+
     feed = feedparser.parse(rss)
 
-    updatePosts(feed)
+    updatePosts(request, feed)
 
-    return render(request, 'last.html', {'feed': feed, 'values': site, 'tags': popularTags()})
+    return render(request, 'last.html', {'feed': feed, 'values': site, 'tags': popularTags(request)})
 
-'''def reg(request):
-
-    return render(request, 'register.html', {'all': Users.objects.all(), 'request': request.POST, 'values': site, 'tags': popularTags()})'''

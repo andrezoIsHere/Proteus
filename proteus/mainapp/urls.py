@@ -25,6 +25,7 @@ urlpatterns = [
     url('tags/(?P<slug>[\w-]+)', views.tags, name='tags'),
     url('filter_feed', views.filter_feed, name="filter_feed"),
     url('exit', views.exit, name="exit"),
+    url('account', views.account, name="account"),
     url('set_reaction', views.set_reaction, name="set_reaction"),
     url('get_reaction', views.get_reaction, name="get_reaction"),
     url('add_view', views.add_view, name="add_view"),
@@ -32,6 +33,7 @@ urlpatterns = [
     url('find', views.find, name='find'),
     url('auth', views.auth, name='auth'),
     url('last', views.last, name='last'),
+    url('set_global_url', views.set_global_url, name="set_global_url"),
     url('', views.index, name='index')
 ]
 
